@@ -1,0 +1,15 @@
+version: '2'
+services:
+    swedishguys-app:
+        image: swedishguys
+        external_links:
+            - swedishguys-postgresql:postgresql
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/swedishguys
+        ports:
+            - 8080:8080
+    swedishguys-postgresql:
+        extends:
+            file: postgresql.yml
+            service: swedishguys-postgresql

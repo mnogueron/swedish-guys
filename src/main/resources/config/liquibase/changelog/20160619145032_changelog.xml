@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="matthieu (generated)" id="1466347835328-1">
+      <createTable tableName="picture_blog">
+         <column name="pictures_id" type="BIGINT">
+            <constraints nullable="false"/>
+         </column>
+         <column name="blogs_id" type="BIGINT">
+            <constraints nullable="false"/>
+         </column>
+      </createTable>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-2">
+      <addPrimaryKey columnNames="pictures_id, blogs_id" tableName="picture_blog"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-3">
+      <addForeignKeyConstraint baseColumnNames="pictures_id"
+                               baseTableName="picture_blog"
+                               constraintName="FK_9t6ku3vlpabaqh7tw1m5dswgo"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="picture"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-4">
+      <addForeignKeyConstraint baseColumnNames="blogs_id"
+                               baseTableName="picture_blog"
+                               constraintName="FK_sj8hf7fut2vmtsee6rq10ac2b"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="blog"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-5">
+      <dropForeignKeyConstraint baseTableName="BLOG_PICTURE" constraintName="FK_BLOG_PICTURE_BLOG_ID"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-6">
+      <dropForeignKeyConstraint baseTableName="BLOG_PICTURE"
+                                constraintName="FK_BLOG_PICTURE_PICTURE_ID"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-7">
+      <dropTable tableName="BLOG_PICTURE"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-8">
+      <dropNotNullConstraint columnDataType="bigint" columnName="blog_id" tableName="entry"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-9">
+      <dropDefaultValue columnDataType="timestamp"
+                        columnName="created_date"
+                        tableName="jhi_user"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-10">
+      <dropDefaultValue columnDataType="timestamp" columnName="date" tableName="entry"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-11">
+      <dropNotNullConstraint columnDataType="bigint" columnName="user_id" tableName="blog"/>
+   </changeSet>
+   <changeSet author="matthieu (generated)" id="1466347835328-12">
+      <dropNotNullConstraint columnDataType="bigint" columnName="user_id" tableName="picture"/>
+   </changeSet>
+</databaseChangeLog>

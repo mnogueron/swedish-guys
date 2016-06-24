@@ -1,0 +1,23 @@
+{
+    "swedishguysApp": {
+        "follower" : {
+            "home": {
+                "title": "Followers",
+                "createLabel": "Créer un nouveau Follower",
+                "createOrEditLabel": "Créer ou éditer un Follower",
+                "search": "Recherche pour Follower"
+            },
+            "created": "Un nouveau Follower a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Follower avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Follower avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Follower {{ id }} ?"
+            },
+            "detail": {
+                "title": "Follower"
+            },
+            "email": "Email",
+            "blog": "Blog"
+        }
+    }
+}

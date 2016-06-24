@@ -1,0 +1,16 @@
+.slider {
+    height: 400px !important;
+}
+
+.slider .indicators {
+    z-index: 2;
+    bottom: 10px;
+}
+
+.slider h5 {
+    text-shadow: 2px 2px 3px grey;
+}
+
+.slider h3 {
+    text-shadow: 2px 2px 3px grey;
+}

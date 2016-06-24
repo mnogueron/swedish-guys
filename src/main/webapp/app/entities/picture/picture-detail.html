@@ -1,0 +1,34 @@
+
+<div>
+    <h2><span translate="swedishguysApp.picture.detail.title">Picture</span> {{vm.picture.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="swedishguysApp.picture.url">Url</span></dt>
+        <dd>
+            <span>{{vm.picture.url}}</span>
+        </dd>
+        <dt><span translate="swedishguysApp.picture.user">User</span></dt>
+        <dd>
+            {{vm.picture.user.login}}
+        </dd>
+        <dt><span translate="swedishguysApp.picture.tag">Tag</span></dt>
+        <dd>
+            <span ng-repeat="tag in vm.picture.tags">
+                <a ui-sref="tag-detail({id: {{tag.id}}})">{{tag.label}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span translate="swedishguysApp.picture.blog">Blog</span></dt>
+        <dd>
+            <span ng-repeat="blog in vm.picture.blogs">
+                <a ui-sref="blog-detail({id: {{blog.id}}})">{{blog.name}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

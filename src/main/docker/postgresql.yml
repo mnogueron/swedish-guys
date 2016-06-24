@@ -1,0 +1,12 @@
+version: '2'
+services:
+    swedishguys-postgresql:
+        container_name: swedishguys-postgresql
+        image: postgres:9.5.1
+        # volumes:
+        #     - ~/volumes/jhipster/swedishguys/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=swedishguys
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
