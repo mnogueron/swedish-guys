@@ -6,12 +6,10 @@ import com.swedishguys.server.repository.EntryRepository;
 import com.swedishguys.server.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.spring.web.json.Json;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -57,6 +55,16 @@ public class EntryResource {
                 ", picture='" + picture + "'" +
                 ", blogName='" + blogName + "'" +
                 '}';
+        }
+    }
+
+    public class BoundingDates implements Serializable {
+        public ZonedDateTime oldest;
+        public ZonedDateTime youngest;
+
+        BoundingDates(ZonedDateTime oldest, ZonedDateTime youngest){
+            this.oldest = oldest;
+            this.youngest = youngest;
         }
     }
 
@@ -121,7 +129,7 @@ public class EntryResource {
         return entries;
     }
 
-    @RequestMapping(value = "/entries/last/{owner}/{nb}/{offset}",
+    @RequestMapping(value = "/entries/{owner}/{nb}/{offset}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -144,6 +152,55 @@ public class EntryResource {
             }
         }
         return publicEntries;
+    }
+
+    @RequestMapping(value = "/entries/last",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<PublicEntry> getLastEntries() {
+        log.debug("REST request to get all youngest Entries");
+        List<Entry> entries = entryRepository.findAll();
+        Collections.sort(entries, (o1, o2) -> (-1) * o1.getDate().compareTo(o2.getDate()));
+
+        List<PublicEntry> publicEntries = new ArrayList<>();
+        ArrayList<String> isInside = new ArrayList<>();
+        int i=0;
+        boolean done = false;
+        while(i < entries.size() && !done){
+            if(!isInside.contains(entries.get(i).getBlog().getUser().getLogin())){
+                isInside.add(entries.get(i).getBlog().getUser().getLogin());
+                publicEntries.add(new PublicEntry(entries.get(i)));
+            }
+            if(isInside.size() == 5){
+                done = true;
+            }
+            i++;
+        }
+        return publicEntries;
+    }
+
+    @RequestMapping(value = "/entries/boundingDates/{owner}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public BoundingDates getEntriesDates(@PathVariable String owner) {
+        log.debug("REST request to get all Entries");
+        List<Entry> entries = entryRepository.findByOwner(owner);
+        Collections.sort(entries, new Comparator<Entry>() {
+            @Override
+            public int compare(Entry o1, Entry o2) {
+                return (-1) * o1.getDate().compareTo(o2.getDate());
+            }
+        });
+
+
+        if(entries.size() > 0){
+            return new BoundingDates(entries.get(0).getDate(), entries.get(entries.size()-1).getDate());
+        }
+        else{
+            return null;
+        }
     }
 
     /**
