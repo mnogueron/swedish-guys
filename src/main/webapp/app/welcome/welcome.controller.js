@@ -15,7 +15,7 @@
         var vm = this;
         vm.loadSlider = false;
 
-        vm.entries = Home.query({nb: 4}, function(){
+        vm.entries = Home.query(function(){
             vm.loadSlider = true;
             console.log(vm.entries);
         })

@@ -160,6 +160,62 @@
                 </p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="slider" slider ng-if='vm.loadSlider'>
+                <ul class="slides">
+
+                    <li ng-repeat="entry in vm.entries">
+                        <img src="{{entry.picture}}"> <!-- random image -->
+                        <div class="caption center-align" ng-if='$index % 3 == 0'>
+                            <h3>{{entry.blogName}}</h3>
+                            <h5 class="light grey-text text-lighten-5">{{entry.title}}</h5>
+                        </div>
+
+                        <div class="caption left-align" ng-if='$index % 3 == 1'>
+                            <h3>{{entry.blogName}}</h3>
+                            <h5 class="light grey-text text-lighten-5">{{entry.title}}</h5>
+                        </div>
+
+                        <div class="caption right-align" ng-if='$index % 3 == 2'>
+                            <h3>{{entry.blogName}}</h3>
+                            <h5 class="light grey-text text-lighten-5">{{entry.title}}</h5>
+                        </div>
+
+                    </li>
+
+
+                    <!--<li>
+                        <img src="http://insitu.asso.fr/wp-content/uploads/2016/02/Stockholm-Stad.jpg"> &lt;!&ndash; random image &ndash;&gt;
+                        <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/03/Sweden.jpg"> &lt;!&ndash; random image &ndash;&gt;
+                        <div class="caption left-align">
+                            <h3>Left Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://www.insightvacations.com/~/media/images/hero/destinations/sweden_stockholm_hero01.jpg?h=640&w=2010"> &lt;!&ndash; random image &ndash;&gt;
+                        <div class="caption right-align">
+                            <h3>Right Aligned Caption</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="https://www.student.liu.se/masters/bicycle/1.487562/students-cycling.jpg"> &lt;!&ndash; random image &ndash;&gt;
+                        <div class="caption center-align">
+                            <h3>This is our big Tagline!</h3>
+                            <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 

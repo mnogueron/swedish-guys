@@ -7,6 +7,6 @@
     BlogSpace.$inject = ['$resource', 'DateUtils'];
 
     function BlogSpace ($resource, DateUtils) {
-        return $resource('api/entries/last/:owner/:nb/:offset');
+        return $resource('api/entries/:owner/:nb/:offset');
     }
 })();

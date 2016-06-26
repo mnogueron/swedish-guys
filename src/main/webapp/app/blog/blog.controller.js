@@ -21,6 +21,35 @@
         // get entries
         vm.entries = BlogSpace.query({owner:vm.blogName, nb: 5, offset: 0}, function(){
             console.log(vm.entries);
-        })
+        });
+
+        $scope.treeOptions = {
+            nodeChildren: "children",
+            dirSelectable: true,
+            injectClasses: {
+                ul: "a1",
+                li: "a2",
+                liSelected: "a7",
+                iExpanded: "a3",
+                iCollapsed: "a4",
+                iLeaf: "a5",
+                label: "a6",
+                labelSelected: "a8"
+            }
+        };
+        $scope.dataForTheTree =
+            [
+                { "content" : "2016", "children" : [
+                    { "content" : "2015", "children" : [] },
+                    { "content" : "Gary", "children" : [
+                        { "content" : "Jenifer", "children" : [
+                            { "content" : "Dani", "children" : [] },
+                            { "content" : "Max", "children" : [] }
+                        ]}
+                    ]}
+                ]},
+                { "content" : "2015", "children" : [] },
+                { "content" : "2014", "children" : [] }
+            ];
     }
 })();

@@ -7,6 +7,6 @@
     Home.$inject = ['$resource', 'DateUtils'];
 
     function Home ($resource, DateUtils) {
-        return $resource('api/entries/last/all/:nb/0');
+        return $resource('api/entries/last');
     }
 })();
