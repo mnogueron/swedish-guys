@@ -58,13 +58,28 @@ public class EntryResource {
         }
     }
 
-    public class BoundingDates implements Serializable {
-        public ZonedDateTime oldest;
-        public ZonedDateTime youngest;
+    public class PublicDate implements Serializable {
+        public int year;
+        public List<Integer> month = new ArrayList<>();
 
-        BoundingDates(ZonedDateTime oldest, ZonedDateTime youngest){
-            this.oldest = oldest;
-            this.youngest = youngest;
+        PublicDate(Entry e){
+            this.year = e.getDate().getYear();
+            this.month.add(e.getDate().getMonthValue());
+        }
+
+        @Override
+        public boolean equals(Object obj){
+            if(obj == null){
+                return false;
+            }
+            if(PublicDate.class.isAssignableFrom(obj.getClass())){
+                return false;
+            }
+            final PublicDate other = (PublicDate)obj;
+            if(other.year == this.year){
+                return true;
+            }
+            return false;
         }
     }
 
@@ -180,11 +195,11 @@ public class EntryResource {
         return publicEntries;
     }
 
-    @RequestMapping(value = "/entries/boundingDates/{owner}",
+    @RequestMapping(value = "/entries/dates/{owner}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public BoundingDates getEntriesDates(@PathVariable String owner) {
+    public List<PublicDate> getEntriesDates(@PathVariable String owner) {
         log.debug("REST request to get all Entries");
         List<Entry> entries = entryRepository.findByOwner(owner);
         Collections.sort(entries, new Comparator<Entry>() {
@@ -194,13 +209,26 @@ public class EntryResource {
             }
         });
 
+        ArrayList<PublicDate> dates = new ArrayList<>();
+        ArrayList<Integer> years = new ArrayList<>();
 
-        if(entries.size() > 0){
-            return new BoundingDates(entries.get(0).getDate(), entries.get(entries.size()-1).getDate());
+        for(Entry e : entries){
+            if(!years.contains(e.getDate().getYear())){
+                dates.add(new PublicDate(e));
+                years.add(e.getDate().getYear());
+            }
+            else{
+                for(PublicDate d : dates){
+                    if(d.year == e.getDate().getYear()){
+                        if(!d.month.contains(e.getDate().getMonthValue())){
+                            d.month.add(e.getDate().getMonthValue());
+                        }
+                        break;
+                    }
+                }
+            }
         }
-        else{
-            return null;
-        }
+        return dates;
     }
 
     /**

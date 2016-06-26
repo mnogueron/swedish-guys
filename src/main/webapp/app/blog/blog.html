@@ -9,10 +9,13 @@
                         <div class="col s12 m12">
                             <div class="card">
                                 <div class="card-image valign-wrapper">
-                                    <div class="valign">
+                                    <div class="valign" style="width:100%;">
                                         <img src="{{entry.picture}}">
                                     </div>
-                                    <span class="card-title">{{entry.title}}</span>
+                                    <span class="card-title">
+                                        {{entry.title}}
+                                        <h6>{{entry.date | date : 'dd-MM-yyyy - HH:mm'}}</h6>
+                                    </span>
                                 </div>
                                 <div class="card-content">
                                     <p class="left-align" ng-bind-html="entry.content"></p>
