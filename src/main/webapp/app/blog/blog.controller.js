@@ -18,6 +18,36 @@
             $state.transitionTo("error");
         }
 
+        switch (vm.blogName){
+            case "anna":
+                vm.image = "content/images/anna.jpg";
+                vm.name = "Anna";
+                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                break;
+            case "jules":
+                vm.image = "content/images/jules.jpg";
+                vm.name = "Jules";
+                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                break;
+            case "matthieu":
+                vm.image = "content/images/matthieu.jpg";
+                vm.name = "Matthieu";
+                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                break;
+            case "maxime":
+                vm.image = "content/images/maxime.jpg";
+                vm.name = "Maxime";
+                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                break;
+            case "reatha":
+                vm.image = "content/images/reatha.jpg";
+                vm.name = "Reatha";
+                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                break;
+            default:
+                break;
+        }
+
         // get entries
         vm.entries = EntriesAccess.query({owner:vm.blogName, nb: 5, offset: 0}, function(){
             console.log(vm.entries);
@@ -48,6 +78,8 @@
                 }
                 $scope.dataForTheTree.push({"content" : vm.dates[i].year, "children": months});
             }
-        })
+        });
+
+
     }
 })();

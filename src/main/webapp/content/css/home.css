@@ -26,3 +26,7 @@
         overflow: hidden;
     }
 }
+
+.hand-cursor {
+    cursor: pointer;
+}

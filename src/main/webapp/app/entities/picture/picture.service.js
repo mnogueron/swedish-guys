@@ -4,9 +4,9 @@
         .module('swedishguysApp')
         .factory('Picture', Picture);
 
-    Picture.$inject = ['$resource'];
+    Picture.$inject = ['$resource', 'DateUtils'];
 
-    function Picture ($resource) {
+    function Picture ($resource, DateUtils) {
         var resourceUrl =  'api/pictures/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,7 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.date = DateUtils.convertDateTimeFromServer(data.date);
                     }
                     return data;
                 }

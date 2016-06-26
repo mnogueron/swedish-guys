@@ -30,6 +30,7 @@
 
         vm.save = function () {
             vm.isSaving = true;
+            vm.picture.date = new Date();
             if (vm.picture.id !== null) {
                 Picture.update(vm.picture, onSaveSuccess, onSaveError);
             } else {

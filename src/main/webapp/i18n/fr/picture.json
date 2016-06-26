@@ -17,6 +17,7 @@
                 "title": "Picture"
             },
             "url": "Url",
+            "date": "Date",
             "user": "User",
             "tag": "Tag",
             "blog": "Blog"

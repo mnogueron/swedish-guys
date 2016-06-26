@@ -25,12 +25,17 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="date" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            
             <column name="user_id" type="bigint">
                 <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="picture" columnName="date" columnDataType="datetime"/>
         
         <createTable tableName="picture_tag">
             <column name="tags_id" type="bigint">

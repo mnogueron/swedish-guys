@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -27,6 +28,10 @@ public class Picture implements Serializable {
     @NotNull
     @Column(name = "url", nullable = false)
     private String url;
+
+    @NotNull
+    @Column(name = "date", nullable = false)
+    private ZonedDateTime date;
 
     @ManyToOne
     @NotNull
@@ -60,6 +65,14 @@ public class Picture implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public ZonedDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(ZonedDateTime date) {
+        this.date = date;
     }
 
     public User getUser() {
@@ -111,6 +124,7 @@ public class Picture implements Serializable {
         return "Picture{" +
             "id=" + id +
             ", url='" + url + "'" +
+            ", date='" + date + "'" +
             '}';
     }
 }

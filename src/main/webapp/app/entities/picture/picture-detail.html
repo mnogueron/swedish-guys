@@ -1,5 +1,5 @@
 
-<div>
+<div class="container">
     <h2><span translate="swedishguysApp.picture.detail.title">Picture</span> {{vm.picture.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
@@ -7,6 +7,10 @@
         <dt><span translate="swedishguysApp.picture.url">Url</span></dt>
         <dd>
             <span>{{vm.picture.url}}</span>
+        </dd>
+        <dt><span translate="swedishguysApp.picture.date">Date</span></dt>
+        <dd>
+            <span>{{vm.picture.date | date:'medium'}}</span>
         </dd>
         <dt><span translate="swedishguysApp.picture.user">User</span></dt>
         <dd>

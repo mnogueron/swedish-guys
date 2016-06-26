@@ -16,6 +16,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,10 +29,10 @@ import java.util.Optional;
 public class PictureResource {
 
     private final Logger log = LoggerFactory.getLogger(PictureResource.class);
-        
+
     @Inject
     private PictureRepository pictureRepository;
-    
+
     /**
      * POST  /pictures : Create a new picture.
      *
@@ -90,6 +92,27 @@ public class PictureResource {
         log.debug("REST request to get all Pictures");
         List<Picture> pictures = pictureRepository.findAllWithEagerRelationships();
         return pictures;
+    }
+
+    /**
+     * GET  /pictures : get the last pictures.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of pictures in body
+     */
+    @RequestMapping(value = "/pictures/last/{nb}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<Picture> getLastPictures(@PathVariable int nb) {
+        log.debug("REST request to get all Pictures");
+        List<Picture> pictures = pictureRepository.findAllWithEagerRelationships();
+        Collections.sort(pictures, new Comparator<Picture>() {
+            @Override
+            public int compare(Picture o1, Picture o2) {
+                return (-1) * o1.getDate().compareTo(o2.getDate());
+            }
+        });
+        return pictures.subList(0, (nb < pictures.size())?nb:pictures.size());
     }
 
     /**

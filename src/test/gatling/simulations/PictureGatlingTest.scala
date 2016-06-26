@@ -67,7 +67,7 @@ class PictureGatlingTest extends Simulation {
             .exec(http("Create new picture")
             .post("/api/pictures")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "url":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "url":"SAMPLE_TEXT", "date":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_picture_url"))).exitHereIfFailed
             .pause(10)

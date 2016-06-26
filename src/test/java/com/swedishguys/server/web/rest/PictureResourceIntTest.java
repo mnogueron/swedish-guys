@@ -23,6 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,8 +45,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class PictureResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_URL = "AAAAA";
     private static final String UPDATED_URL = "BBBBB";
+
+    private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_DATE_STR = dateTimeFormatter.format(DEFAULT_DATE);
 
     @Inject
     private PictureRepository pictureRepository;
@@ -71,6 +81,7 @@ public class PictureResourceIntTest {
     public void initTest() {
         picture = new Picture();
         picture.setUrl(DEFAULT_URL);
+        picture.setDate(DEFAULT_DATE);
     }
 
     @Test
@@ -90,6 +101,7 @@ public class PictureResourceIntTest {
         assertThat(pictures).hasSize(databaseSizeBeforeCreate + 1);
         Picture testPicture = pictures.get(pictures.size() - 1);
         assertThat(testPicture.getUrl()).isEqualTo(DEFAULT_URL);
+        assertThat(testPicture.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
@@ -98,6 +110,24 @@ public class PictureResourceIntTest {
         int databaseSizeBeforeTest = pictureRepository.findAll().size();
         // set the field null
         picture.setUrl(null);
+
+        // Create the Picture, which fails.
+
+        restPictureMockMvc.perform(post("/api/pictures")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(picture)))
+                .andExpect(status().isBadRequest());
+
+        List<Picture> pictures = pictureRepository.findAll();
+        assertThat(pictures).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = pictureRepository.findAll().size();
+        // set the field null
+        picture.setDate(null);
 
         // Create the Picture, which fails.
 
@@ -121,7 +151,8 @@ public class PictureResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(picture.getId().intValue())))
-                .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())));
+                .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)));
     }
 
     @Test
@@ -135,7 +166,8 @@ public class PictureResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(picture.getId().intValue()))
-            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()));
+            .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR));
     }
 
     @Test
@@ -157,6 +189,7 @@ public class PictureResourceIntTest {
         Picture updatedPicture = new Picture();
         updatedPicture.setId(picture.getId());
         updatedPicture.setUrl(UPDATED_URL);
+        updatedPicture.setDate(UPDATED_DATE);
 
         restPictureMockMvc.perform(put("/api/pictures")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -168,6 +201,7 @@ public class PictureResourceIntTest {
         assertThat(pictures).hasSize(databaseSizeBeforeUpdate);
         Picture testPicture = pictures.get(pictures.size() - 1);
         assertThat(testPicture.getUrl()).isEqualTo(UPDATED_URL);
+        assertThat(testPicture.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test

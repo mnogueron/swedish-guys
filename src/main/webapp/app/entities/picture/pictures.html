@@ -20,6 +20,7 @@
                 <tr>
                     <th><span translate="global.field.id">ID</span></th>
                     <th><span translate="swedishguysApp.picture.url">Url</span></th>
+                    <th><span translate="swedishguysApp.picture.date">Date</span></th>
                     <th><span translate="swedishguysApp.picture.user">User</span></th>
                     <th><span translate="swedishguysApp.picture.tag">Tag</span></th>
                     <th><span translate="swedishguysApp.picture.blog">Blog</span></th>
@@ -30,6 +31,7 @@
                 <tr ng-repeat="picture in vm.pictures track by picture.id">
                     <td><a ui-sref="picture-detail({id:picture.id})">{{picture.id}}</a></td>
                     <td>{{picture.url}}</td>
+                    <td>{{picture.date | date:'medium'}}</td>
                     <td>
                         {{picture.user.login}}
                     </td>
