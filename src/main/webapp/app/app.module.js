@@ -24,12 +24,10 @@
         ])
         .run(run);
 
-    run.$inject = ['stateHandler', 'translationHandler', '$sanitize', '$compileProvider'];
+    run.$inject = ['stateHandler', 'translationHandler'];
 
-    function run(stateHandler, translationHandler, $sanitize, $compileProvider) {
+    function run(stateHandler, translationHandler) {
         stateHandler.initialize();
         translationHandler.initialize();
-        console.log($sanitize);
-        console.log($compileProvider);
     }
 })();

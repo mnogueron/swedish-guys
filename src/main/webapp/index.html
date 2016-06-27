@@ -15,6 +15,8 @@
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
+    <link rel="stylesheet" href="content/css/main.css">
+    <!-- endbuild -->
 
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -46,11 +48,9 @@
     <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control.css">
     <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control-attribute.css">
 
-    <link rel="stylesheet" href="content/css/main.css">
     <link rel="stylesheet" href="content/css/home.css">
 
     <base href="/">
-    <!-- endbuild -->
 </head>
 <body ng-app="swedishguysApp">
     <!--[if lt IE 9]>
@@ -61,13 +61,13 @@
     <header>
         <div ui-view="navbar" ng-cloak></div>
     </header>
-    <!--<div class="container">
-        <div class="well" ui-view="content">
+    <!--<div class="container" style="display: none">
+        <div class="well">
             &lt;!&ndash; Angular views &ndash;&gt;
         </div>
 
         <div class="footer" ng-cloak>
-            &lt;!&ndash;<p translate="footer">This is your footer</p>&ndash;&gt;
+            <p translate="footer">This is your footer</p>
         </div>
     </div>-->
 
@@ -189,8 +189,8 @@
     <script src="app/services/user/user.service.js"></script>
     <script src="app/services/profiles/profile.service.js"></script>
     <script src="app/services/profiles/page-ribbon.directive.js"></script>
-    <script src="app/services/entries.service.js"></script>
     <script src="app/services/pictures.service.js"></script>
+    <script src="app/services/entries.service.js"></script>
     <script src="app/services/auth/sessions.service.js"></script>
     <script src="app/services/auth/register.service.js"></script>
     <script src="app/services/auth/principal.service.js"></script>

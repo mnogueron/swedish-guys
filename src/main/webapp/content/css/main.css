@@ -14,28 +14,6 @@ body {
     color: #333;
 }
 
-nav a:hover, nav a:focus {
-    color: white;
-    text-decoration: none;
-    outline: none;
-}
-
-li .dropdown-button {
-    padding: 0 40px 0 40px;
-}
-
-.modal-dialog {
-    width: initial;
-    margin: initial;
-}
-
-.modal-content {
-    border: initial;
-    border-radius: initial;
-    box-shadow: initial;
-    background: initial;
-}
-
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
 ========================================================================== */

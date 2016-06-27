@@ -30,3 +30,25 @@
 .hand-cursor {
     cursor: pointer;
 }
+
+nav a:hover, nav a:focus {
+    color: white;
+    text-decoration: none;
+    outline: none;
+}
+
+li .dropdown-button {
+    padding: 0 40px 0 40px;
+}
+
+.modal-dialog {
+    width: initial;
+    margin: initial;
+}
+
+.modal-content {
+    border: initial;
+    border-radius: initial;
+    box-shadow: initial;
+    background: initial;
+}
