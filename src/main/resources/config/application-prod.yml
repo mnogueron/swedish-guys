@@ -20,8 +20,8 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/swedishguys
         name:
-        username: swedishguys
-        password:
+        username: power_user
+        password: 6rExA2YgTkjWHncd
     jpa:
         database-platform: com.swedishguys.server.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
