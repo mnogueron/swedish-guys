@@ -2,7 +2,7 @@
     <ul class="slides">
 
         <li ng-repeat="entry in vm.entries">
-            <img src="{{entry.picture}}"> <!-- random image -->
+            <img ng-src="{{entry.picture}}"> <!-- random image -->
             <div class="caption center-align" ng-if='$index % 3 == 0'>
                 <h3>{{entry.blogName}}</h3>
                 <h5 class="light grey-text text-lighten-5">{{entry.title}}</h5>
@@ -86,7 +86,7 @@
 </div>
 
 <div class="parallax-container" style="height:300px;">
-    <div parallax><img src="content/images/Sweden_Stockholm_Hero01.jpg"></div>
+    <div parallax><img ng-src="content/images/Sweden_Stockholm_Hero01.jpg"></div>
 </div>
 
 <div class="container">
@@ -98,7 +98,7 @@
                 <div class="col s12 m4 hoverable hand-cursor" ng-click="go(profile.destination)" ng-if="$index < 3">
                     <div class="icon-block">
                         <h2 class="center">
-                            <img src="{{profile.image}}" class="circle responsive-img" style="max-width:200px">
+                            <img ng-src="{{profile.image}}" class="circle responsive-img" style="max-width:200px">
                         </h2>
                     </div>
                     <h5 class="center">{{profile.name}}</h5>
@@ -108,7 +108,7 @@
                 <div class="col s12 m6 hoverable hand-cursor" ng-click="go(profile.destination)" ng-if="$index >= 3">
                     <div class="icon-block">
                         <h2 class="center">
-                            <img src="{{profile.image}}" class="circle responsive-img" style="max-width:200px">
+                            <img ng-src="{{profile.image}}" class="circle responsive-img" style="max-width:200px">
                         </h2>
                     </div>
                     <h5 class="center">{{profile.name}}</h5>
@@ -131,7 +131,7 @@
                 <div class="slider" slider ng-if='vm.loadSliderPictures'>
                     <ul class="slides">
                         <li ng-repeat="picture in vm.pictures">
-                            <img src="{{picture.url}}">
+                            <img ng-src="{{picture.url}}">
                         </li>
                     </ul>
                 </div>

@@ -27,6 +27,7 @@
 
         vm.save = function () {
             vm.isSaving = true;
+            console.log(vm.tag);
             if (vm.tag.id !== null) {
                 Tag.update(vm.tag, onSaveSuccess, onSaveError);
             } else {

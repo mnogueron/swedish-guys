@@ -8,16 +8,11 @@
     WelcomeController.$inject = ['$scope', '$location', '$state', 'LastEntries', 'LastPictures'];
 
     function WelcomeController ($scope, $location, $state, LastEntries, LastPictures) {
-        angular.element(document).ready(function() {
-            angular.element($(".slider")).first().css("height", "400px");
-        });
-
-        $scope.go = function ( path ) {
-            console.log(path);
-            $location.path( path );
-        };
 
         var vm = this;
+        vm.profiles = [];
+        vm.entries = [];
+        vm.pictures = [];
         vm.loadSlider = false;
         vm.loadSliderPictures = false;
 
@@ -67,5 +62,14 @@
             }
             console.log(vm.pictures);
         });
+
+        angular.element(document).ready(function() {
+            angular.element($(".slider")).first().css("height", "400px");
+        });
+
+        $scope.go = function ( path ) {
+            console.log(path);
+            $location.path( path );
+        };
     }
 })();

@@ -11,7 +11,6 @@
             'ngAria',
             'ngSanitize',
             'ui.materialize',
-            'froala',
             'treeControl',
             'ngCacheBuster',
             'ngFileUpload',

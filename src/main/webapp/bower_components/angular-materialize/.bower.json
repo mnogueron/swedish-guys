@@ -21,7 +21,6 @@
     "commit": "27a962d86fa6ca81e500b29e4a740e793ce27216"
   },
   "_source": "https://github.com/krescruz/angular-materialize.git",
-  "_target": "^0.1.9",
-  "_originalSource": "angular-materialize",
-  "_direct": true
+  "_target": "0.1.9",
+  "_originalSource": "angular-materialize"
 }

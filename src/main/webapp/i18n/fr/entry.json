@@ -2,24 +2,24 @@
     "swedishguysApp": {
         "entry" : {
             "home": {
-                "title": "Entries",
-                "createLabel": "Créer un nouveau Entry",
-                "createOrEditLabel": "Créer ou éditer un Entry",
-                "search": "Recherche pour Entry"
+                "title": "Billets",
+                "createLabel": "Créer un nouveau Billet",
+                "createOrEditLabel": "Créer ou éditer un Billet",
+                "search": "Recherche pour Billet"
             },
-            "created": "Un nouveau Entry a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Entry avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Entry avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouveau billet a été créé avec l'identifiant {{ param }}",
+            "updated": "Le billet avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le billet avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Entry {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer le billet {{ id }} ?"
             },
             "detail": {
-                "title": "Entry"
+                "title": "Billet"
             },
-            "title": "Title",
-            "content": "Content",
+            "title": "Titre",
+            "content": "Contenu",
             "date": "Date",
-            "picture": "Picture",
+            "picture": "Image",
             "blog": "Blog",
             "tag": "Tag"
         }

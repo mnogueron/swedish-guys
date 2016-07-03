@@ -1,0 +1,104 @@
+
+<div class="container">
+    <h2><span translate="swedishguysApp.entry.detail.title">Entry</span></h2>
+    <div class="modal-content-inner" style="padding:24px;">
+        <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+            <h4>Aperçu</h4>
+
+            <div class="col s12 l8">
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card hoverable">
+                            <div class="card-image valign-wrapper">
+                                <div class="valign" style="width:100%;">
+                                    <img src="{{vm.entry.picture}}">
+                                </div>
+                    <span class="card-title">
+                        {{vm.entry.title}}
+                        <h6>{{vm.entry.date | date : 'dd-MM-yyyy - HH:mm'}}</h6>
+                    </span>
+                            </div>
+                            <div class="card-content">
+                                <p class="left-align" ng-bind-html="vm.contentDisplayed "></p>
+                            </div>
+                            <div class="card-action" ng-if="vm.tagsDisplay.length != 0">
+
+                                <div class="chip" ng-repeat="tag in vm.tagsDisplay">
+                                    {{ tag }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="modal-title" id="myEntryLabel" translate="swedishguysApp.entry.home.createOrEditLabel">Create an Entry</h4>
+
+            <div class="modal-body">
+
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group">
+                    <label class="control-label" translate="swedishguysApp.entry.title" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                           ng-model="vm.entry.title"
+                           required />
+                    <div ng-show="editForm.title.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" translate="swedishguysApp.entry.content" for="field_content">Content</label>
+                    <textarea class="form-control" name="content" id="field_content" ng-model="vm.entry.content" required />
+
+                    <div ng-show="editForm.content.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.content.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" translate="swedishguysApp.entry.picture" for="field_picture">Picture</label>
+                    <input type="text" class="form-control" name="picture" id="field_picture"
+                           ng-model="vm.entry.picture"
+                           required />
+                    <div ng-show="editForm.picture.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.picture.$error.required" translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" translate="swedishguysApp.entry.tag" for="field_tags">Tag</label>
+                    <input type="text" data-provide="typeahead" class="form-control" name="tags" id="field_tags"
+                           ng-model="vm.tag"/>
+                </div>
+                <div class="form-group" has-authority="ROLE_ADMIN">
+                    <label translate="swedishguysApp.entry.blog" for="field_blog">Blog</label>
+                    <select class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <button type="submit"
+    onclick="window.history.back()"
+    class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+    <button type="button" class="btn btn-default" ng-click="vm.clear()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+    </button>
+    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary" ng-click="vm.save()">
+        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+    </button>
+</div>

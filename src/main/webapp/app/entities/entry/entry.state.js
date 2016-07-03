@@ -55,6 +55,66 @@
                 }]
             }
         })
+        .state('entry-new', {
+            parent: 'entity',
+            url: '/newEntry',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'swedishguysApp.entry.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/entry/entry-new.html',
+                    controller: 'NewEntryController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('entry');
+                    return $translate.refresh();
+                }],
+                entity: function () {
+                    return {
+                        title: null,
+                        content: null,
+                        date: null,
+                        picture: null,
+                        id: null
+                    };
+                }
+            }
+        })
+        .state('entry-edit', {
+            parent: 'entity',
+            url: '/editEntry/{id}',
+            data: {
+                authorities: ['ROLE_USER'],
+                pageTitle: 'swedishguysApp.entry.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/entry/entry-new.html',
+                    controller: 'NewEntryController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                entity: function () {
+                    return {
+                        title: null,
+                        content: null,
+                        date: null,
+                        picture: null,
+                        id: null
+                    };
+                },
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('entry');
+                    return $translate.refresh();
+                }]
+            }
+        })
         .state('entry.new', {
             parent: 'entry',
             url: '/new',

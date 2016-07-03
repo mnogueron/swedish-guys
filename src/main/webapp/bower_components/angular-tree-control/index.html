@@ -31,7 +31,6 @@
         .docs-sidenav > li > a:hover {background-color: transparent; color: #563d7c; border-left: 1px solid #563d7c;padding-left: 19px;}
         .type-hint-object {background:#999;}
         .type-hint-boolean {background:rgb(18, 131, 39);}
-        .type-hint-function {background: rgb(36, 53, 131);}
         .type-hint-number {background:rgb(189, 63, 66);}
     </style>
 </head>
@@ -170,9 +169,9 @@
         <tr><td><code>node</code></td><td><span class="label type-hint-object">Object</span></td><td>The current node the label represents.</td></tr>
         <tr><td><code>$parentNode</code></td><td><span class="label type-hint-object">Object</span></td><td>The parent of the current node.</td></tr>
         <tr><td><code>$index</code></td><td><span class="label type-hint-number">number</span></td><td>iterator offset of the repeated element under one parent node(0..length-1).</td></tr>
-        <tr><td><code>$oldest</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is oldest in the iterator.</td></tr>
-        <tr><td><code>$middle</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is between the oldest and youngest in the iterator.</td></tr>
-        <tr><td><code>$youngest</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is youngest in the iterator.</td></tr>
+        <tr><td><code>$first</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is first in the iterator.</td></tr>
+        <tr><td><code>$middle</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is between the first and last in the iterator.</td></tr>
+        <tr><td><code>$last</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is last in the iterator.</td></tr>
         <tr><td><code>$odd</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the iterator position $index is even (otherwise false).</td></tr>
         <tr><td><code>$even</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the iterator position $index is odd (otherwise false).</td></tr>
         <tr><td><code>$path</code></td><td><span class="label type-hint-function">function</span></td><td>a function that when called, returns the path to the current node.</td></tr>
@@ -430,8 +429,8 @@
                     <div save-content="events-html">
                         <treecontrol class="tree-classic"
                                      tree-model="treedata"
-                                     on-selection="showSelected(node, selected, $parentNode, $index, $oldest, $middle, $youngest, $odd, $even, $path)"
-                                     on-node-toggle="showToggle(node, expanded, $parentNode, $index, $oldest, $middle, $youngest, $odd, $even, $path)">
+                                     on-selection="showSelected(node, selected, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
+                                     on-node-toggle="showToggle(node, expanded, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)">
                             label: {{node.label}} ({{node.id}})
                         </treecontrol>
                     </div>
@@ -457,9 +456,9 @@
         <tr><td><code>node</code></td><td><span class="label type-hint-object">Object</span></td><td>The current node the label represents.</td></tr>
         <tr><td><code>$parentNode</code></td><td><span class="label type-hint-object">Object</span></td><td>The parent of the current node.</td></tr>
         <tr><td><code>$index</code></td><td><span class="label type-hint-number">number</span></td><td>iterator offset of the repeated element under one parent node(0..length-1).</td></tr>
-        <tr><td><code>$oldest</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is oldest in the iterator.</td></tr>
-        <tr><td><code>$middle</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is between the oldest and youngest in the iterator.</td></tr>
-        <tr><td><code>$youngest</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is youngest in the iterator.</td></tr>
+        <tr><td><code>$first</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is first in the iterator.</td></tr>
+        <tr><td><code>$middle</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is between the first and last in the iterator.</td></tr>
+        <tr><td><code>$last</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the repeated element is last in the iterator.</td></tr>
         <tr><td><code>$odd</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the iterator position $index is even (otherwise false).</td></tr>
         <tr><td><code>$even</code></td><td><span class="label type-hint-boolean">boolean</span></td><td>true if the iterator position $index is odd (otherwise false).</td></tr>
         <tr><td><code>$path</code></td><td><span class="label type-hint-function">function</span></td><td>a function that when called, returns the path to the current node.</td></tr>
@@ -479,16 +478,16 @@
     <script save-content="events-js">
         function Events($scope) {
             $scope.treedata=createSubTree(3, 4, "");
-            $scope.showToggle = function(node, expanded, $parentNode, $index, $oldest, $middle, $youngest, $odd, $even, $path) {
+            $scope.showToggle = function(node, expanded, $parentNode, $index, $first, $middle, $last, $odd, $even, $path) {
                 var parent = $parentNode?("child of: " + $parentNode.label):"root node";
-                var location = $oldest?"oldest":($youngest?"youngest":("middle node at index " + $index));
+                var location = $first?"first":($last?"last":("middle node at index " + $index));
                 var oddEven = $odd?"odd":"even";
                 var path = $path().map(function(node) {return node.label});
                 $("#events-listing").append("<li>"+node.label+ (expanded?" expanded":" collapsed") +" (" + parent + ", " + location +", " + oddEven + ", ["+ path+"])</li>");
             };
-            $scope.showSelected = function(node, selected, $parentNode, $index, $oldest, $middle, $youngest, $odd, $even, $path) {
+            $scope.showSelected = function(node, selected, $parentNode, $index, $first, $middle, $last, $odd, $even, $path) {
                 var parent = $parentNode?("child of: " + $parentNode.label):"root node";
-                var location = $oldest?"oldest":($youngest?"youngest":("middle node at index " + $index));
+                var location = $first?"first":($last?"last":("middle node at index " + $index));
                 var oddEven = $odd?"odd":"even";
                 var path = $path().map(function(node) {return node.label});
                 $("#events-listing").append("<li>"+node.label+ (selected?" selected":" deselected") +" (" + parent + ", " + location +", " + oddEven + ", ["+ path +"])</li>");

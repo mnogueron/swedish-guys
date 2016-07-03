@@ -10,7 +10,7 @@
     function EntryDetailController($scope, $rootScope, $stateParams, DataUtils, entity, Entry, Blog, Tag) {
         var vm = this;
         vm.entry = entity;
-        
+
         var unsubscribe = $rootScope.$on('swedishguysApp:entryUpdate', function(event, result) {
             vm.entry = result;
         });

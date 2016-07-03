@@ -10,7 +10,7 @@
                         Create new Entry
                     </span>
                 </button>-->
-                <button class="btn btn-primary" ng-click="vm.openEntryModal()">
+                <button class="btn btn-primary" ui-sref="entry-new()">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span  translate="swedishguysApp.entry.home.createLabel">
                         Create new Entry
@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="entry in vm.entries track by entry.id">
+                <tr ng-repeat="entry in vm.entries track by entry.date">
                     <td><a ui-sref="entry-detail({id:entry.id})">{{entry.id}}</a></td>
                     <td>{{entry.title}}</td>
                     <td style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: inline-block;width: 200px;">{{entry.content}}</td>
@@ -58,7 +58,7 @@
                                 <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="entry.edit({id:entry.id})"
+                                    ui-sref="entry-edit({id:entry.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>

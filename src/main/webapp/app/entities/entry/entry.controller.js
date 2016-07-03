@@ -5,16 +5,29 @@
         .module('swedishguysApp')
         .controller('EntryController', EntryController);
 
-    EntryController.$inject = ['$scope', '$state', 'DataUtils', 'Entry', 'Blog', 'Tag'];
+    EntryController.$inject = ['$scope', '$location', '$state', 'Principal', 'DataUtils', 'Entry', 'Blog', 'Tag'];
 
-    function EntryController ($scope, $state, DataUtils, Entry, Blog, Tag) {
+    function EntryController ($scope, $location, $state, Principal, DataUtils, Entry, Blog, Tag) {
         var vm = this;
         vm.entries = [];
         vm.openFile = DataUtils.openFile;
         vm.byteSize = DataUtils.byteSize;
         vm.loadAll = function() {
             Entry.query(function(result) {
-                vm.entries = result;
+                Principal.hasAuthority("ROLE_ADMIN").then(function(value){
+                    if(value){
+                        vm.entries = result;
+                    }
+                    else{
+                        Principal.identity().then(function(account) {
+                            vm.account = account;
+                            vm.entries = result;
+                            vm.entries = vm.entries.filter(function(element){
+                                return element.blog.user.login == account.login;
+                            });
+                        });
+                    }
+                });
             });
         };
 
@@ -71,6 +84,10 @@
             } else {
                 Entry.save(vm.entry, onSaveSuccess, onSaveError);
             }
+        };
+
+        vm.openNewEntry = function(){
+            $location.path('#/newEntry');
         };
 
         vm.openEntryModal = function(){

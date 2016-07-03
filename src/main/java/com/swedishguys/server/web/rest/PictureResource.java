@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing Picture.
@@ -32,6 +30,16 @@ public class PictureResource {
 
     @Inject
     private PictureRepository pictureRepository;
+
+    public class PublicPicture implements Serializable{
+        public String url;
+        public String user;
+
+        PublicPicture(Picture p){
+            url = p.getUrl();
+            user = p.getUser().getLogin();
+        }
+    }
 
     /**
      * POST  /pictures : Create a new picture.
@@ -103,16 +111,16 @@ public class PictureResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public List<Picture> getLastPictures(@PathVariable int nb) {
+    public List<PublicPicture> getLastPictures(@PathVariable int nb) {
         log.debug("REST request to get all Pictures");
         List<Picture> pictures = pictureRepository.findAllWithEagerRelationships();
-        Collections.sort(pictures, new Comparator<Picture>() {
-            @Override
-            public int compare(Picture o1, Picture o2) {
-                return (-1) * o1.getDate().compareTo(o2.getDate());
-            }
-        });
-        return pictures.subList(0, (nb < pictures.size())?nb:pictures.size());
+        Collections.sort(pictures, (o1, o2) -> (-1) * o1.getDate().compareTo(o2.getDate()));
+
+        List<PublicPicture> publicPictures = new ArrayList<>();
+        for(int i = 0; i < nb && i < pictures.size(); i++){
+            publicPictures.add(new PublicPicture(pictures.get(i)));
+        }
+        return publicPictures;
     }
 
     /**

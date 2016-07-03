@@ -44,7 +44,6 @@
     "commit": "ce0ab9d10f5be5b48d50d607c01120478f1ba314"
   },
   "_source": "https://github.com/froala/angular-froala.git",
-  "_target": "^2.3.2",
-  "_originalSource": "angular-froala",
-  "_direct": true
+  "_target": "2.3.2",
+  "_originalSource": "angular-froala"
 }

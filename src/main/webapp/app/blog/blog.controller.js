@@ -5,9 +5,9 @@
         .module('swedishguysApp')
         .controller('BlogSpaceController', BlogSpaceController);
 
-    BlogSpaceController.$inject = ['$scope', '$state', '$stateParams', '$locale', 'EntriesAccess', 'BoundingDates'];
+    BlogSpaceController.$inject = ['$scope', '$state', '$sce', '$stateParams', '$locale', 'EntriesAccess', 'BoundingDates'];
 
-    function BlogSpaceController ($scope, $state, $stateParam, $locale, EntriesAccess, BoundingDates) {
+    function BlogSpaceController ($scope, $state, $sce, $stateParam, $locale, EntriesAccess, BoundingDates) {
 
         var vm = this;
         vm.blogName = $stateParam.blogName;
@@ -51,6 +51,9 @@
         // get entries
         vm.entries = EntriesAccess.query({owner:vm.blogName, nb: 5, offset: 0}, function(){
             console.log(vm.entries);
+            vm.entries.forEach(function(element, index, array){
+                array[index].content = $sce.trustAsHtml(element.content);
+            })
         });
 
         $scope.treeOptions = {
