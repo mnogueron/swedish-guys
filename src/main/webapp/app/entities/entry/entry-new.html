@@ -51,8 +51,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.content" for="field_content">Content</label>
-                    <textarea class="form-control" name="content" id="field_content" ng-model="vm.entry.content" required />
+                    <div class="input-field col s12">
+                        <label translate="swedishguysApp.entry.content" for="field_content">Content</label>
+                        <textarea class="materialize-textarea" name="content" id="field_content" ng-model="vm.entry.content" required />
+                    </div>
+
 
                     <div ng-show="editForm.content.$invalid">
                         <p class="help-block"

@@ -1,19 +1,19 @@
 <div class="container">
     <div class="section">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col s12 l4">
                 <span class="hipster img-responsive img-rounded"></span>
             </div>
-            <div class="col-md-8">
+            <div class="col s12 l8">
                 <h1 translate="home.title">Welcome, Java Hipster!</h1>
                 <p class="lead" translate="home.subtitle">This is your homepage</p>
 
                 <div ng-switch="vm.isAuthenticated()">
-                    <div class="alert alert-success" ng-switch-when="true" translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
+                    <div class="card-panel light-green lighten-3" ng-switch-when="true" translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
                         You are logged in as user "{{vm.account.login}}".
                     </div>
 
-                    <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register" translate-compile>
+                    <div class="card-panel yellow lighten-3" ng-switch-when="false" translate="global.messages.info.register" translate-compile>
                         You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down" ng-switch="vm.isAuthenticated()">
             <li ui-sref-active="active">
                 <a ui-sref="home" ng-click="vm.collapseNavbar()">
-                    <span class="glyphicon glyphicon-home"></span>
+                    <i class="material-icons left">home</i>
                     <span class="hidden-sm" translate="global.menu.home">Home</span>
                 </a>
             </li>
@@ -15,11 +15,11 @@
             <li ui-sref-active="active" ng-if="vm.isAuthenticated()" materialize-dropdown>
                 <a class="dropdown-button" id="entity-menu" data-activates="entities">
                     <span>
-                        <span class="glyphicon glyphicon-th-list"></span>
+                        <i class="material-icons left">list</i>
                         <span class="hidden-sm" translate="global.menu.entities.main">
                             Entities
                         </span>
-                        <b class="caret"></b>
+                        <i class="material-icons right">arrow_drop_down</i>
                     </span>
                 </a>
 
@@ -56,48 +56,48 @@
             <li ui-sref-active="active" materialize-dropdown>
                 <a class="dropdown-button" id="account-menu" data-activates="account">
                     <span>
-                        <span class="glyphicon glyphicon-user"></span>
+                        <i class="material-icons left">person</i>
                         <span class="hidden-sm" translate="global.menu.account.main">
                             Account
                         </span>
-                        <b class="caret"></b>
+                        <i class="material-icons right">arrow_drop_down</i>
                     </span>
                 </a>
 
                 <ul id="account" class="dropdown-content">
                     <li ui-sref-active="active" ng-switch-when="true">
                         <a ui-sref="settings">
-                            <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+                            <i class="material-icons left">settings</i>
                             <span translate="global.menu.account.settings">Settings</span>
                         </a>
                     </li>
                     <li ui-sref-active="active" ng-switch-when="true">
                         <a ui-sref="password">
-                            <span class="glyphicon glyphicon-lock"></span>
+                            <i class="material-icons left">lock</i>
                             <span translate="global.menu.account.password">Password</span>
                         </a>
                     </li>
                     <li ui-sref-active="active" ng-switch-when="true">
                         <a ui-sref="sessions">
-                            <span class="glyphicon glyphicon-cloud"></span>&nbsp;
+                            <i class="material-icons left">cloud</i>
                             <span translate="global.menu.account.sessions">Sessions</span>
                         </a>
                     </li>
                     <li ui-sref-active="active" ng-switch-when="true">
                         <a href="" ng-click="vm.logout()" id="logout">
-                            <span class="glyphicon glyphicon-log-out"></span>&nbsp;
+                            <i class="material-icons left">exit_to_app</i>
                             <span translate="global.menu.account.logout">Sign out</span>
                         </a>
                     </li>
                     <li ui-sref-active="active" ng-switch-when="false">
                         <a href="" ng-click="vm.login()" id="login">
-                            <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+                            <i class="material-icons left">account_circle</i>
                             <span translate="global.menu.account.login">Sign in</span>
                         </a>
                     </li>
                     <li ui-sref-active="active" ng-switch-when="false">
                         <a ui-sref="register">
-                            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;
+                            <i class="material-icons left">add_circle</i>
                             <span translate="global.menu.account.register">Register</span>
                         </a>
                     </li>
@@ -107,65 +107,65 @@
             <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" ui-sref-active="active" materialize-dropdown>
                 <a class="dropdown-button" id="admin-menu" data-activates="admin">
                     <span>
-                        <span class="glyphicon glyphicon-tower"></span>
+                        <i class="material-icons left">verified_user</i>
                         <span class="hidden-sm" translate="global.menu.admin.main">Administration</span>
-                        <b class="caret"></b>
+                        <i class="material-icons right">arrow_drop_down</i>
                     </span>
                 </a>
 
                 <ul id="admin" class="dropdown-content">
                     <li ui-sref-active="active">
                         <a ui-sref="user-management">
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;
+                            <i class="material-icons left">person</i>
                             <span translate="global.menu.admin.userManagement">User management</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="jhi-tracker">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;
+                            <i class="material-icons left">remove_red_eye</i>
                             <span translate="global.menu.admin.tracker">User tracker</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="jhi-metrics">
-                            <span class="glyphicon glyphicon-dashboard"></span>&nbsp;
+                            <i class="material-icons left">info</i>
                             <span translate="global.menu.admin.metrics">Metrics</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="jhi-health">
-                            <span class="glyphicon glyphicon-heart"></span>&nbsp;
+                            <i class="material-icons left">favorite</i>
                             <span translate="global.menu.admin.health">Health</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="jhi-configuration">
-                            <span class="glyphicon glyphicon-list-alt"></span>&nbsp;
+                            <i class="material-icons left">featured_play_list</i>
                             <span translate="global.menu.admin.configuration">Configuration</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="audits">
-                            <span class="glyphicon glyphicon-bell"></span>&nbsp;
+                            <i class="material-icons left">alarm</i>
                             <span translate="global.menu.admin.audits">Audits</span>
                         </a>
                     </li>
                     <li ui-sref-active="active">
                         <a ui-sref="logs">
-                            <span class="glyphicon glyphicon-tasks"></span>&nbsp;
+                            <i class="material-icons left">build</i>
                             <span translate="global.menu.admin.logs">Logs</span>
                         </a>
                     </li>
                     <li ng-hide="vm.inProduction || vm.swaggerDisabled" ui-sref-active="active">
                         <a ui-sref="docs">
-                            <span class="glyphicon glyphicon-book"></span>&nbsp;
+                            <i class="material-icons left">library_books</i>
                             <span translate="global.menu.admin.apidocs">API</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                     <li ng-hide="vm.inProduction">
                         <a href='/h2-console' target="_tab">
-                            <span class="glyphicon glyphicon-hdd"></span>&nbsp;
+                            <i class="material-icons left">storage</i>
                             <span translate="global.menu.admin.database">Database</span>
                         </a>
                     </li>
@@ -175,9 +175,9 @@
             <li ui-sref-active="active" ng-controller="JhiLanguageController as languageVm" materialize-dropdown>
                 <a class="dropdown-button" id="language-menu" data-activates="language">
                     <span>
-                        <span class="glyphicon glyphicon-flag"></span>
+                        <i class="material-icons left">language</i>
                         <span class="hidden-sm" translate="global.menu.language">Language</span>
-                        <b class="caret"></b>
+                        <i class="material-icons right">arrow_drop_down</i>
                     </span>
                 </a>
                 <ul id="language" class="dropdown-content">

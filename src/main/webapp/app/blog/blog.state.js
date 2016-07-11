@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider.state('blogspace', {
             parent: 'app',
-            url: '/blogspace/{blogName}',
+            url: '/blogspace/{blogName}/{page}',
             data: {
                 authorities: []
             },

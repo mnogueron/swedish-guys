@@ -4,7 +4,9 @@
         .module('swedishguysApp')
         .factory('LastEntries', LastEntries)
         .factory('BoundingDates', BoundingDates)
-        .factory('EntriesAccess', EntriesAccess);
+        .factory('EntriesAccess', EntriesAccess)
+        .factory('EntriesNumber', EntriesNumber)
+        .factory('EntriesAccessByDate', EntriesAccessByDate);
 
     LastEntries.$inject = ['$resource', 'DateUtils'];
 
@@ -22,5 +24,17 @@
 
     function EntriesAccess($resource) {
         return $resource('api/entries/:owner/:nb/:offset');
+    }
+
+    EntriesAccessByDate.$inject = ['$resource'];
+
+    function EntriesAccessByDate($resource) {
+        return $resource('api/entries/:owner/:date');
+    }
+
+    EntriesNumber.$inject = ['$resource'];
+
+    function EntriesNumber($resource) {
+        return $resource('api/entries/number/:owner');
     }
 })();

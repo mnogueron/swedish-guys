@@ -5,12 +5,14 @@
         .module('swedishguysApp')
         .controller('BlogSpaceController', BlogSpaceController);
 
-    BlogSpaceController.$inject = ['$scope', '$state', '$sce', '$stateParams', '$locale', 'EntriesAccess', 'BoundingDates'];
+    BlogSpaceController.$inject = ['$scope', '$state', '$sce', '$stateParams', '$locale', 'POSTS_NUMBER', 'EntriesAccess', 'EntriesAccessByDate', 'BoundingDates', 'EntriesNumber'];
 
-    function BlogSpaceController ($scope, $state, $sce, $stateParam, $locale, EntriesAccess, BoundingDates) {
+    function BlogSpaceController ($scope, $state, $sce, $stateParam, $locale, POSTS_NUMBER, EntriesAccess, EntriesAccessByDate, BoundingDates, EntriesNumber) {
 
         var vm = this;
         vm.blogName = $stateParam.blogName;
+        vm.page = ($stateParam.page == "" || $stateParam.page < 1)?1:$stateParam.page;
+        vm.displayPagination = false;
 
         //check if blogName is good and return 404 otherwise
         if(vm.blogName != 'anna' && vm.blogName != 'jules' && vm.blogName != 'matthieu'
@@ -48,17 +50,44 @@
                 break;
         }
 
-        // get entries
-        vm.entries = EntriesAccess.query({owner:vm.blogName, nb: 5, offset: 0}, function(){
-            console.log(vm.entries);
-            vm.entries.forEach(function(element, index, array){
-                array[index].content = $sce.trustAsHtml(element.content);
-            })
-        });
+        if(isNaN(vm.page)){
+            var reg = new RegExp(/^\d{2}-\d{4}$/);
+            if(reg.test(vm.page)){
+                vm.entries = EntriesAccessByDate.query({owner:vm.blogName, date: vm.page}, function(){
+                    console.log(vm.entries);
+                    vm.entries.forEach(function(element, index, array){
+                        array[index].content = $sce.trustAsHtml(element.content);
+                    })
+                });
+            }
+        }
+        else{
+
+            // get number of entries
+            vm.entriesNumber = EntriesNumber.get({owner:vm.blogName}, function(){
+                vm.entriesNumber = vm.entriesNumber.number;
+                console.log(vm.entriesNumber);
+                vm.pageNumber = vm.entriesNumber / POSTS_NUMBER;
+                vm.displayPagination = vm.entriesNumber > POSTS_NUMBER;
+
+                if(vm.page > vm.pageNumber){
+                    vm.page = 1;
+                }
+
+                // get entries
+                vm.entries = EntriesAccess.query({owner:vm.blogName, nb: POSTS_NUMBER, offset: POSTS_NUMBER*(vm.page-1)}, function(){
+                    console.log(vm.entries);
+                    vm.entries.forEach(function(element, index, array){
+                        array[index].content = $sce.trustAsHtml(element.content);
+                    })
+                });
+            });
+        }
+
 
         $scope.treeOptions = {
             nodeChildren: "children",
-            dirSelectable: true,
+            dirSelectable: false,
             injectClasses: {
                 ul: "a1",
                 li: "a2",
@@ -71,6 +100,24 @@
             }
         };
         $scope.dataForTheTree = [];
+
+        $scope.monthToInt = function(month){
+            return $locale.DATETIME_FORMATS.MONTH.indexOf(month) + 1;
+        };
+
+        $scope.changePage = function(page){
+            $state.go("blogspace", ({blogName: vm.blogName, page: page}));
+        }
+
+        $scope.showSelected = function(node, parent){
+            console.log(node, parent);
+            if(parent != null){
+                var month = $scope.monthToInt(node.content);
+                month = ("0" + month).substr(-2);
+                var date = month +"-" + parent.content;
+                $scope.changePage(date);
+            }
+        };
 
         vm.dates = BoundingDates.query({owner:vm.blogName}, function(){
             console.log(vm.dates);

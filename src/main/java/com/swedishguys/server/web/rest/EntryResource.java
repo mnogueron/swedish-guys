@@ -1,7 +1,10 @@
 package com.swedishguys.server.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import com.swedishguys.server.domain.Entry;
+import com.swedishguys.server.domain.Tag;
 import com.swedishguys.server.repository.EntryRepository;
 import com.swedishguys.server.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -18,6 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Entry.
@@ -37,6 +41,7 @@ public class EntryResource {
         public ZonedDateTime date;
         public String picture;
         public String blogName;
+        public Set<Tag> tags;
 
         PublicEntry(Entry e){
             title = e.getTitle();
@@ -44,6 +49,8 @@ public class EntryResource {
             date = e.getDate();
             picture = e.getPicture();
             blogName = e.getBlog().getName();
+            log.debug("Entry sent with tags: {}", e.getTags());
+            tags = e.getTags();
         }
 
         @Override
@@ -80,6 +87,14 @@ public class EntryResource {
                 return true;
             }
             return false;
+        }
+    }
+
+    public class EntriesNumber implements Serializable {
+        public int number;
+
+        EntriesNumber(int number){
+            this.number = number;
         }
     }
 
@@ -144,13 +159,23 @@ public class EntryResource {
         return entries;
     }
 
+    /**
+     * GET /entries/owner/nb/offset : get nb entries starting at offset from owner
+     * @param owner the owner of the entries
+     * @param nb the number of entries to get
+     * @param offset the offset where to start
+     * @return the ResponseEntity with status 200 (OK) and the list of entries in body
+     */
     @RequestMapping(value = "/entries/{owner}/{nb}/{offset}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<PublicEntry> getNbEntries(@PathVariable String owner, @PathVariable int nb, @PathVariable int offset) {
         log.debug("REST request to get all Entries");
-        List<Entry> entries = (owner.equals("all"))?entryRepository.findAll():entryRepository.findByOwner(owner);
+        List<Entry> entries = entryRepository.findAllWithEagerRelationships();
+        if(!owner.equals("all")) {
+            entries = entries.stream().filter(e -> e.getBlog().getUser().getLogin().equals(owner)).collect(Collectors.toList());
+        }
         Collections.sort(entries, new Comparator<Entry>() {
             @Override
             public int compare(Entry o1, Entry o2) {
@@ -169,13 +194,47 @@ public class EntryResource {
         return publicEntries;
     }
 
+    @RequestMapping(value = "/entries/{owner}/{date}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<PublicEntry> getEntriesForMonth(@PathVariable String owner, @PathVariable String date) {
+        log.debug("REST request to get all Entries");
+        List<Entry> entries = entryRepository.findAllWithEagerRelationships();
+        int month = Integer.parseInt(date.split("-")[0]);
+        int year = Integer.parseInt(date.split("-")[1]);
+        if(!owner.equals("all")) {
+            entries = entries.stream().filter(e -> (
+                e.getBlog().getUser().getLogin().equals(owner)
+                && e.getDate().getMonthValue() == month
+                && e.getDate().getYear() == year
+            )).collect(Collectors.toList());
+        }
+        Collections.sort(entries, new Comparator<Entry>() {
+            @Override
+            public int compare(Entry o1, Entry o2) {
+                return (-1) * o1.getDate().compareTo(o2.getDate());
+            }
+        });
+
+        List<PublicEntry> publicEntries = new ArrayList<>();
+        for(Entry e : entries){
+            publicEntries.add(new PublicEntry(e));
+        }
+        return publicEntries;
+    }
+
+    /**
+     * GET /entries/last : Get the last five entries
+     * @return the ResponseEntity with status 200 (OK) and the list of entries in body
+     */
     @RequestMapping(value = "/entries/last",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<PublicEntry> getLastEntries() {
         log.debug("REST request to get all youngest Entries");
-        List<Entry> entries = entryRepository.findAll();
+        List<Entry> entries = entryRepository.findAllWithEagerRelationships();
         Collections.sort(entries, (o1, o2) -> (-1) * o1.getDate().compareTo(o2.getDate()));
 
         List<PublicEntry> publicEntries = new ArrayList<>();
@@ -229,6 +288,15 @@ public class EntryResource {
             }
         }
         return dates;
+    }
+
+    @RequestMapping(value = "/entries/number/{owner}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public EntriesNumber getEntriesNumber(@PathVariable String owner) {
+        log.debug("REST request to get number of entries for user: {}", owner);
+        return new EntriesNumber(entryRepository.findByOwner(owner).size());
     }
 
     /**

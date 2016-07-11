@@ -4,12 +4,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <!--<button class="btn btn-primary" ui-sref="entry.new" >
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <span  translate="swedishguysApp.entry.home.createLabel">
-                        Create new Entry
-                    </span>
-                </button>-->
                 <button class="btn btn-primary" ui-sref="entry-new()">
                     <span class="glyphicon glyphicon-plus"></span>
                     <span  translate="swedishguysApp.entry.home.createLabel">
@@ -40,7 +34,7 @@
                     <td>{{entry.title}}</td>
                     <td style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: inline-block;width: 200px;">{{entry.content}}</td>
                     <td>{{entry.date | date:'medium'}}</td>
-                    <td><img src="{{entry.picture}}" style="width:300px;"></td>
+                    <td><img src="{{entry.picture}}" style="width:200px;"></td>
                     <td>
                         <a ui-sref="blog-detail({id:entry.blog.id})">{{entry.blog.name}}</a>
                     </td>
@@ -50,141 +44,29 @@
                         </span>
                     </td>
                     <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
+                        <div class="center">
                             <button type="submit"
                                     ui-sref="entry-detail({id:entry.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                                    class="waves-effect waves-light btn blue lighten-3">
+                                <i class="material-icons left">remove_red_eye</i>
+                                <span translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
                                     ui-sref="entry-edit({id:entry.id})"
-                                    class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                                    class="waves-effect waves-light btn">
+                                <i class="material-icons left">mode_edit</i>
+                                <span translate="entity.action.edit"></span>
                             </button>
-                            <button type="submit"
+                            <a type="submit"
                                     ui-sref="entry.delete({id:entry.id})"
-                                    class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                            </button>
+                                    class="waves-effect waves-light btn red lighten-1">
+                                <i class="material-icons left">remove_circle</i>
+                                <span translate="entity.action.delete"></span>
+                            </a>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-</div>
-
-<!-- Modal Structure -->
-<div id="entry-modal" class="modal">
-    <div class="modal-content-inner" style="padding:24px;">
-        <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
-
-            <h4 class="modal-title" id="myEntryLabel" translate="swedishguysApp.entry.home.createOrEditLabel">Create or edit a Entry</h4>
-
-            <div class="modal-body">
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" ng-show="vm.entry.id">
-                    <label for="id" translate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                           ng-model="vm.entry.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.title" for="field_title">Title</label>
-                    <input type="text" class="form-control" name="title" id="field_title"
-                           ng-model="vm.entry.title"
-                           required />
-                    <div ng-show="editForm.title.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.title.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.content" for="field_content">Content</label>
-            <textarea class="form-control" name="content" id="field_content"
-                      ng-model="vm.entry.content" required />
-                    <div ng-show="editForm.content.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.content.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                    </div>
-                </div>
-                <!--<div class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.date" for="inputDate">Date</label>
-                    <input input-date
-                           type="text"
-                           name="created"
-                           id="inputDate"
-                           ng-model="currentTime"
-                           container="body"
-                           format="dd/mm/yyyy"
-                           months-full="{{ month }}"
-                           months-short="{{ monthShort }}"
-                           weekdays-full="{{ weekdaysFull }}"
-                           weekdays-short="{{ weekdaysShort }}"
-                           weekdays-letter="{{ weekdaysLetter }}"
-                           disable="disable"
-                           min="{{ minDate }}"
-                           max="{{ maxDate }}"
-                           today="today"
-                           clear="clear"
-                           close="close"
-                           select-years="15"
-                           on-start="onStart()"
-                           on-render="onRender()"
-                           on-open="onOpen()"
-                           on-close="onClose()"
-                           on-set="onSet()"
-                           on-stop="onStop()" />
-                    <label for="input_starttime">Time</label>
-                    <input id="input_starttime" input-clock data-twelvehour="false" type="text">
-                </div>-->
-                <div class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.picture" for="field_picture">Picture</label>
-                    <input type="text" class="form-control" name="picture" id="field_picture"
-                           ng-model="vm.entry.picture"
-                           required />
-                    <div ng-show="editForm.picture.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.picture.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label translate="swedishguysApp.entry.blog" for="field_blog">Blog</label>
-                    <select class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id" required>
-                        <option value=""></option>
-                    </select>
-                </div>
-                <div ng-show="editForm.blog.$invalid">
-                    <p class="help-block"
-                       ng-show="editForm.blog.$error.required" translate="entity.validation.required">
-                        This field is required.
-                    </p>
-                </div>
-                <div class="form-group">
-                    <label translate="swedishguysApp.entry.tag" for="field_tag">Tag</label>
-                    <select class="form-control" id="field_tag" multiple name="tag" ng-model="vm.entry.tags" ng-options="tag as tag.label for tag in vm.tags track by tag.id"></select>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
-            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary" ng-click="vm.save()">
-            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
-        </button>
-    </div>
-    <!--<div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>-->
 </div>

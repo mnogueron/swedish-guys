@@ -20,21 +20,10 @@
                                 <div class="card-content">
                                     <p class="left-align" ng-bind-html="entry.content"></p>
                                 </div>
-                                <div class="card-action">
-
-                                    <div class="chip">
-                                        Tag1
+                                <div class="card-action" ng-if="entry.tags.length != 0">
+                                    <div class="chip" ng-repeat="tag in entry.tags">
+                                        {{ tag.label }}
                                     </div>
-
-                                    <div class="chip">
-                                        Tag2
-                                    </div>
-
-                                    <div class="chip">
-                                        Tag3
-                                    </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -46,6 +35,24 @@
                     </div>
                     <br>
                 </div>-->
+
+
+                <div class="center" ng-if="vm.entriesNumber > 1">
+                    <pagination
+                        page="vm.page"
+                        page-size="1"
+                        total="vm.pageNumber"
+                        show-prev-next="true"
+                        use-simple-prev-next="false"
+                        dots="...."
+                        hide-if-empty="false"
+                        adjacent="2"
+                        scroll-top="false"
+                        pagination-action="changePage(page)" />
+                </div>
+
+
+
             </div>
 
             <div class="col s12 l4">
@@ -66,7 +73,7 @@
                                     <treecontrol class="tree-classic"
                                                  tree-model="dataForTheTree"
                                                  options="treeOptions"
-                                                 on-selection="showSelected(node)"
+                                                 on-selection="showSelected(node, $parentNode)"
                                                  selected-node="node1">
                                         {{node.content}}
                                     </treecontrol>
