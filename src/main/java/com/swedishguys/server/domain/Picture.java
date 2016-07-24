@@ -33,9 +33,8 @@ public class Picture implements Serializable {
     @Column(name = "date", nullable = false)
     private ZonedDateTime date;
 
-    @ManyToOne
-    @NotNull
-    private User user;
+    @Column(name = "content")
+    private String content;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -50,6 +49,11 @@ public class Picture implements Serializable {
                joinColumns = @JoinColumn(name="pictures_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="blogs_id", referencedColumnName="ID"))
     private Set<Blog> blogs = new HashSet<>();
+
+    @OneToOne
+    @NotNull
+    @JoinColumn(unique = true)
+    private User user;
 
     public Long getId() {
         return id;
@@ -75,12 +79,12 @@ public class Picture implements Serializable {
         this.date = date;
     }
 
-    public User getUser() {
-        return user;
+    public String getContent() {
+        return content;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Set<Tag> getTags() {
@@ -97,6 +101,14 @@ public class Picture implements Serializable {
 
     public void setBlogs(Set<Blog> blogs) {
         this.blogs = blogs;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -125,6 +137,7 @@ public class Picture implements Serializable {
             "id=" + id +
             ", url='" + url + "'" +
             ", date='" + date + "'" +
+            ", content='" + content + "'" +
             '}';
     }
 }

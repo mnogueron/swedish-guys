@@ -12,9 +12,9 @@
         <dd>
             <span>{{vm.picture.date | date:'medium'}}</span>
         </dd>
-        <dt><span translate="swedishguysApp.picture.user">User</span></dt>
+        <dt><span translate="swedishguysApp.picture.content">Content</span></dt>
         <dd>
-            {{vm.picture.user.login}}
+            <span>{{vm.picture.content}}</span>
         </dd>
         <dt><span translate="swedishguysApp.picture.tag">Tag</span></dt>
         <dd>
@@ -27,6 +27,10 @@
             <span ng-repeat="blog in vm.picture.blogs">
                 <a ui-sref="blog-detail({id: {{blog.id}}})">{{blog.name}}</a>{{$last ? '' : ', '}}
             </span>
+        </dd>
+        <dt><span translate="swedishguysApp.picture.user">User</span></dt>
+        <dd>
+            {{vm.picture.user.login}}
         </dd>
     </dl>
 

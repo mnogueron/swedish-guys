@@ -77,13 +77,13 @@
     <div parallax><img src="content/images/liu.jpg"></div>
 </div>-->
 
-<div class="container">
+<div class="container" ng-if="vm.pictures.length > 0">
     <div class="section">
     <div class="card">
             <div class="icon-block">
                 <div class="slider" slider ng-if='vm.loadSliderPictures'>
                     <ul class="slides">
-                        <li ng-repeat="picture in vm.pictures" ui-sref="gallery()" style="cursor: pointer;">
+                        <li class="hand-cursor" ng-repeat="picture in vm.pictures" ui-sref="gallery()">
                             <img ng-src="{{picture.url}}">
                         </li>
                     </ul>

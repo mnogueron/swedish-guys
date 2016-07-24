@@ -73,6 +73,7 @@
                             return {
                                 url: null,
                                 date: null,
+                                content: null,
                                 id: null
                             };
                         }

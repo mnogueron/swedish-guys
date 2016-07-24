@@ -34,10 +34,12 @@ public class PictureResource {
     public class PublicPicture implements Serializable{
         public String url;
         public String user;
+        public String content;
 
         PublicPicture(Picture p){
             url = p.getUrl();
             user = p.getUser().getLogin();
+            content = p.getContent();
         }
     }
 

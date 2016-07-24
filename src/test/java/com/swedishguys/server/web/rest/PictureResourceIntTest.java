@@ -53,6 +53,8 @@ public class PictureResourceIntTest {
     private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
     private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
     private static final String DEFAULT_DATE_STR = dateTimeFormatter.format(DEFAULT_DATE);
+    private static final String DEFAULT_CONTENT = "AAAAA";
+    private static final String UPDATED_CONTENT = "BBBBB";
 
     @Inject
     private PictureRepository pictureRepository;
@@ -82,6 +84,7 @@ public class PictureResourceIntTest {
         picture = new Picture();
         picture.setUrl(DEFAULT_URL);
         picture.setDate(DEFAULT_DATE);
+        picture.setContent(DEFAULT_CONTENT);
     }
 
     @Test
@@ -102,6 +105,7 @@ public class PictureResourceIntTest {
         Picture testPicture = pictures.get(pictures.size() - 1);
         assertThat(testPicture.getUrl()).isEqualTo(DEFAULT_URL);
         assertThat(testPicture.getDate()).isEqualTo(DEFAULT_DATE);
+        assertThat(testPicture.getContent()).isEqualTo(DEFAULT_CONTENT);
     }
 
     @Test
@@ -152,7 +156,8 @@ public class PictureResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(picture.getId().intValue())))
                 .andExpect(jsonPath("$.[*].url").value(hasItem(DEFAULT_URL.toString())))
-                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)));
+                .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
+                .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())));
     }
 
     @Test
@@ -167,7 +172,8 @@ public class PictureResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(picture.getId().intValue()))
             .andExpect(jsonPath("$.url").value(DEFAULT_URL.toString()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()));
     }
 
     @Test
@@ -190,6 +196,7 @@ public class PictureResourceIntTest {
         updatedPicture.setId(picture.getId());
         updatedPicture.setUrl(UPDATED_URL);
         updatedPicture.setDate(UPDATED_DATE);
+        updatedPicture.setContent(UPDATED_CONTENT);
 
         restPictureMockMvc.perform(put("/api/pictures")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -202,6 +209,7 @@ public class PictureResourceIntTest {
         Picture testPicture = pictures.get(pictures.size() - 1);
         assertThat(testPicture.getUrl()).isEqualTo(UPDATED_URL);
         assertThat(testPicture.getDate()).isEqualTo(UPDATED_DATE);
+        assertThat(testPicture.getContent()).isEqualTo(UPDATED_CONTENT);
     }
 
     @Test

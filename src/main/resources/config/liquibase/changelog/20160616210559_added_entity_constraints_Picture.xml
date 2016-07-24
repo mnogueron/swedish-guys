@@ -8,12 +8,6 @@
     -->
     <changeSet id="20160616210559-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="user_id"
-                                 baseTableName="picture"
-                                 constraintName="fk_picture_user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="jhi_user"/>
-
         <addForeignKeyConstraint baseColumnNames="pictures_id"
                                  baseTableName="picture_tag"
                                  constraintName="fk_picture_tag_tag_id"
@@ -36,5 +30,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="blog"/>
         
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="picture"
+                                 constraintName="fk_picture_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
     </changeSet>
 </databaseChangeLog>

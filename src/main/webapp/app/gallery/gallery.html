@@ -2,19 +2,18 @@
     <div class="section">
         <div class="row">
             <div class="col s12 center">
-                <h4>Gallery</h4>
+                <h4>Galerie</h4>
                 <p class="left-align light">
-                    Nous sommes une bande d'élèves ingénieurs prêt à fouler le territoire Suédois en quête de nouvelles aventures et de nouveaux paysages.
-                    Un semestre passera pour certain, un an pour d'autre à l'Université de Linköping et peut-être que certains y resteront même !
-                    <br>
-                    Mais pour le moment, le temps est venu de raconter notre voyage sur ce site.
+                    Lorem ipsum
                 </p>
             </div>
 
-            <div class="col s12 m4" ng-repeat="picture in vm.pictures">
-                <img materialboxed class="materialboxed responsive-img" ng-src="{{picture.url}}">
-            </div>
 
+        </div>
+        <div class="row">
+            <div class="col s12 m4" ng-repeat="picture in vm.pictures">
+                <img materialboxed class="materialboxed responsive-img" data-caption="{{picture.content}} @{{picture.user}}" ng-src="{{picture.url}}">
+            </div>
         </div>
     </div>
 </div>

@@ -18,9 +18,10 @@
             },
             "url": "Url",
             "date": "Date",
-            "user": "User",
+            "content": "Content",
             "tag": "Tag",
-            "blog": "Blog"
+            "blog": "Blog",
+            "user": "User"
         }
     }
 }
