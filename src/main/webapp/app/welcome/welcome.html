@@ -83,7 +83,7 @@
             <div class="icon-block">
                 <div class="slider" slider ng-if='vm.loadSliderPictures'>
                     <ul class="slides">
-                        <li ng-repeat="picture in vm.pictures">
+                        <li ng-repeat="picture in vm.pictures" ui-sref="gallery()" style="cursor: pointer;">
                             <img ng-src="{{picture.url}}">
                         </li>
                     </ul>
