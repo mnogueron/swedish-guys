@@ -174,7 +174,8 @@ gulp.task('ngconstant:dev', function () {
         constants: {
             VERSION: util.parseVersion(),
             DEBUG_INFO_ENABLED: true,
-            POSTS_NUMBER: 5
+            POSTS_NUMBER: 5,
+            PICTURES_NUMBER: 3
         },
         template: config.constantTemplate,
         stream: true
@@ -189,7 +190,8 @@ gulp.task('ngconstant:prod', function () {
         constants: {
             VERSION: util.parseVersion(),
             DEBUG_INFO_ENABLED: false,
-            POSTS_NUMBER: 5
+            POSTS_NUMBER: 5,
+            PICTURES_NUMBER: 9
         },
         template: config.constantTemplate,
         stream: true

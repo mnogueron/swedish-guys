@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider.state('gallery', {
             parent: 'app',
-            url: '/gallery',
+            url: '/gallery/{page}',
             data: {
                 authorities: []
             },

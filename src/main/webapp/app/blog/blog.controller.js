@@ -67,7 +67,7 @@
             vm.entriesNumber = EntriesNumber.get({owner:vm.blogName}, function(){
                 vm.entriesNumber = vm.entriesNumber.number;
                 console.log(vm.entriesNumber);
-                vm.pageNumber = vm.entriesNumber / POSTS_NUMBER;
+                vm.pageNumber = Math.ceil(vm.entriesNumber / POSTS_NUMBER);
                 vm.displayPagination = vm.entriesNumber > POSTS_NUMBER;
 
                 if(vm.page > vm.pageNumber){
@@ -107,7 +107,7 @@
 
         $scope.changePage = function(page){
             $state.go("blogspace", ({blogName: vm.blogName, page: page}));
-        }
+        };
 
         $scope.showSelected = function(node, parent){
             console.log(node, parent);

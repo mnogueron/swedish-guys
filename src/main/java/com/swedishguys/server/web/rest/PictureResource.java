@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing Picture.
@@ -40,6 +41,14 @@ public class PictureResource {
             url = p.getUrl();
             user = p.getUser().getLogin();
             content = p.getContent();
+        }
+    }
+
+    public class PicturesNumber implements Serializable {
+        public int number;
+
+        PicturesNumber(int number){
+            this.number = number;
         }
     }
 
@@ -125,6 +134,26 @@ public class PictureResource {
         return publicPictures;
     }
 
+    @RequestMapping(value = "/pictures/{nb}/{offset}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public List<PublicPicture> getNbPictures(@PathVariable int nb, @PathVariable int offset) {
+        log.debug("REST request to get all Pictures");
+        List<Picture> pictures = pictureRepository.findAllWithEagerRelationships();
+        Collections.sort(pictures, (o1, o2) -> (-1) * o1.getDate().compareTo(o2.getDate()));
+
+        // TODO check if the size is good
+        List<PublicPicture> publicPictures = new ArrayList<>();
+        if(offset < pictures.size()){
+            pictures = pictures.subList(offset, (((offset + nb) <= pictures.size())?(offset+nb):pictures.size()));
+            for(Picture e : pictures){
+                publicPictures.add(new PublicPicture(e));
+            }
+        }
+        return publicPictures;
+    }
+
     /**
      * GET  /pictures/:id : get the "id" picture.
      *
@@ -161,4 +190,12 @@ public class PictureResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("picture", id.toString())).build();
     }
 
+    @RequestMapping(value = "/pictures/number",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public PicturesNumber getEntriesNumber() {
+        log.debug("REST request to get number of pictures");
+        return new PicturesNumber(pictureRepository.findAllWithEagerRelationships().size());
+    }
 }

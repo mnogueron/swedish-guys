@@ -15,5 +15,19 @@
                 <img materialboxed class="materialboxed responsive-img" data-caption="{{picture.content}} @{{picture.user}}" ng-src="{{picture.url}}">
             </div>
         </div>
+
+        <div class="center" ng-if="vm.picturesNumber > 1">
+            <pagination
+                page="vm.page"
+                page-size="1"
+                total="vm.pageNumber"
+                show-prev-next="true"
+                use-simple-prev-next="false"
+                dots="...."
+                hide-if-empty="false"
+                adjacent="2"
+                scroll-top="false"
+                pagination-action="changePage(page)" />
+        </div>
     </div>
 </div>
