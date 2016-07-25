@@ -2,20 +2,36 @@
     <div class="section">
         <div class="row">
             <div class="col s12 center">
-                <h4>Galerie</h4>
-                <p class="left-align light">
-                    Lorem ipsum
+                <h3>Galerie</h3>
+                <div class="divider"></div>
+                <p class="center light">
+                    <i>
+                        Un petit voyage dans les contrés Suédoises, une ballade en forêt, un retour de cours ou bien même encore la découverte des évennements concoctés par le réseau Erasmus.
+                        </br>
+                        Ici point de place pour les textes à rallonges, les photos se suffisent à elles-mêmes. Et quoi de mieux que des photos pour s'en prendre plein la tête !
+                        </br>
+                        Bonne dégustation...
+                    </i>
                 </p>
+                <div class="divider"></div>
             </div>
-
-
         </div>
+
         <div class="row">
             <div class="col s12 m4" ng-repeat="picture in vm.pictures">
-                <img materialboxed class="materialboxed responsive-img" data-caption="{{picture.content}} @{{picture.user}}" ng-src="{{picture.url}}">
+                <div class="card">
+                    <div class="card-image" style="height: initial;">
+                        <img materialboxed class="materialboxed responsive-img" data-caption="{{picture.content}} @{{picture.user}}" ng-src="{{picture.url}}">
+                    </div>
+                    <div class="card-content">
+                        <p class="center" ng-if="picture.content != ''">{{picture.content}}</p>
+                        <p class="center"><i>@{{picture.user}} - {{picture.date | date : 'dd-MM-yyyy'}}</i></p>
+                    </div>
+                </div>
             </div>
         </div>
 
+        </br>
         <div class="center" ng-if="vm.picturesNumber > 1">
             <pagination
                 page="vm.page"

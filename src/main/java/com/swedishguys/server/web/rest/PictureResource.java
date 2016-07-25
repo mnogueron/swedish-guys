@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,11 +37,13 @@ public class PictureResource {
         public String url;
         public String user;
         public String content;
+        public ZonedDateTime date;
 
         PublicPicture(Picture p){
             url = p.getUrl();
             user = p.getUser().getLogin();
             content = p.getContent();
+            date = p.getDate();
         }
     }
 
