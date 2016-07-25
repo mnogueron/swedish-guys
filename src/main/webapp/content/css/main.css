@@ -72,6 +72,11 @@ body {
     color: #333;
 }
 
+.btn-flat:hover {
+    background-color: rgba(0,0,0,0.1);
+    box-shadow: none;
+}
+
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
 ========================================================================== */

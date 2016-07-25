@@ -20,6 +20,14 @@
             $state.transitionTo("error");
         }
 
+        vm.checked = {
+            anna: vm.blogName == 'anna',
+            jules: vm.blogName == 'jules',
+            matthieu: vm.blogName == 'matthieu',
+            maxime: vm.blogName == 'maxime',
+            reatha: vm.blogName == 'reatha'
+        }
+
         switch (vm.blogName){
             case "anna":
                 vm.image = "content/images/anna.jpg";
@@ -108,6 +116,10 @@
         $scope.changePage = function(page){
             $state.go("blogspace", ({blogName: vm.blogName, page: page}));
         };
+
+        $scope.isDefaultChecked = function(owner){
+            console.log(owner);
+        }
 
         $scope.showSelected = function(node, parent){
             console.log(node, parent);

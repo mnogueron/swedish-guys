@@ -59,7 +59,7 @@
                 <div class="card hoverable">
                     <div class="row">
                         <div class="icon-block">
-                            <div class="center"  style="margin:1.2rem 2rem 0">
+                            <div class="center"  style="padding:1.2rem 2rem 0">
                                 <img src="{{vm.image}}" class="circle responsive-img" style="max-width:200px">
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                             <div class="divider"></div>
                             <h5 class="center">{{vm.name}}</h5>
                             <p class="light center" style="margin-bottom: 20px">{{vm.detail}}</p>
-                            <div class="divider"></div>
+                            <div class="divider" ng-if="vm.entries.length > 0"></div>
                             <div class="col s12 l12">
                                 <div class="section">
                                     <treecontrol class="tree-classic"
@@ -78,6 +78,52 @@
                                         {{node.content}}
                                     </treecontrol>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card-action center">
+                            <a href='#subscribe-modal' modal>S'abonner</a>
+                        </div>
+
+                        <div id="subscribe-modal" class="modal">
+                            <div class="modal-content">
+                                <h4>S'abonner</h4>
+                                <p><i>Entrez votre adresse mail et sélectionnez les blogs pour lesquels vous souhaitez recevoir des notifications.</i></p>
+                                <div class="row">
+                                    <div class="input-field col s12 m8">
+                                        <input id="email" type="email" class="validate">
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <form action="#" class="col s12 m8">
+                                        <p>
+                                            <input type="checkbox" id="anna" ng-checked="{{vm.checked.anna}}" />
+                                            <label for="anna">Anna</label>
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" id="jules" ng-checked="{{vm.checked.jules}}" />
+                                            <label for="jules">Jules</label>
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" id="matthieu" ng-checked="{{vm.checked.matthieu}}" />
+                                            <label for="matthieu">Matthieu</label>
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" id="maxime" ng-checked="{{vm.checked.maxime}}" />
+                                            <label for="maxime">Maxime</label>
+                                        </p>
+                                        <p>
+                                            <input type="checkbox" id="reatha" ng-checked="{{vm.checked.reatha}}" />
+                                            <label for="reatha">Reatha</label>
+                                        </p>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <a ui-sref="blogspace({blogName: vm.blogName, page: vm.page})" class="modal-action modal-close waves-effect waves-green btn-flat">Accepter</a>
+                                <a ui-sref="blogspace({blogName: vm.blogName, page: vm.page})" class="modal-action modal-close waves-effect waves-green btn-flat">Annuler</a>
                             </div>
                         </div>
                     </div>
