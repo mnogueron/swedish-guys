@@ -1,18 +1,23 @@
 package com.swedishguys.server.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import com.swedishguys.server.domain.Blog;
 import com.swedishguys.server.domain.Entry;
+import com.swedishguys.server.domain.Follower;
 import com.swedishguys.server.domain.Tag;
 import com.swedishguys.server.repository.EntryRepository;
+import com.swedishguys.server.repository.FollowerRepository;
+import com.swedishguys.server.service.MailService;
 import com.swedishguys.server.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -32,8 +37,22 @@ public class EntryResource {
 
     private final Logger log = LoggerFactory.getLogger(EntryResource.class);
 
+    private static final String ENTRY = "entry";
+
     @Inject
     private EntryRepository entryRepository;
+
+    @Inject
+    private FollowerRepository followerRepository;
+
+    @Inject
+    private MailService mailService;
+
+    @Inject
+    private MessageSource messageSource;
+
+    @Inject
+    private SpringTemplateEngine templateEngine;
 
     public class PublicEntry implements Serializable {
         public String title;
@@ -115,6 +134,30 @@ public class EntryResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("entry", "idexists", "A new entry cannot already have an ID")).body(null);
         }
         Entry result = entryRepository.save(entry);
+
+        // get all Follower
+        List<Follower> followers = followerRepository.findAllWithEagerRelationships();
+        List<Follower> followersPurged = new ArrayList<>();
+        // only keep ones with same subscription as the creator of the entry
+        for(int i = 0; i < followers.size(); i++){
+            for(Iterator<Blog> it = followers.get(i).getBlogs().iterator(); it.hasNext(); ){
+                if(it.next().getUser().getLogin().equals(entry.getBlog().getUser().getLogin())){
+                    followersPurged.add(followers.get(i));
+                    break;
+                }
+            }
+        }
+
+        // send email to all the followers
+        Locale locale = Locale.forLanguageTag(entry.getBlog().getUser().getLangKey());
+        Context context = new Context(locale);
+        context.setVariable(ENTRY, entry);
+        String content = templateEngine.process("newsletterEmail", context);
+        String subject = messageSource.getMessage("email.newsletter.title", null, locale);
+        for(int i = 0; i < followersPurged.size(); i++){
+            mailService.sendEmail(followersPurged.get(i).getEmail(), subject, content, false, true);
+        }
+
         return ResponseEntity.created(new URI("/api/entries/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("entry", result.getId().toString()))
             .body(result);

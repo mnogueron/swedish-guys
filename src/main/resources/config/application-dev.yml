@@ -35,7 +35,16 @@ spring:
             hibernate.generate_statistics: true
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     mail:
-        host: localhost
+        host: smtp.gmail.com
+        port: 587
+        username: matthieu.nogueron@gmail.com  #Replace this field with your Gmail username.
+        password: ******           #Replace this field with your Gmail password.
+        protocol: smtp
+        tls: true
+        properties.mail.smtp:
+            auth: true
+            starttls.enable: true
+            ssl.trust: smtp.gmail.com
     messages:
         cache-seconds: 1
     thymeleaf:

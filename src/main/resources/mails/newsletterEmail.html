@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.newsletter.title}">[Newsletter] New entry at SwedishGuys</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.newsletter.greeting}">
+    Dear follower
+</p>
+<p th:text="#{email.newsletter.text1(${entry.blog.name}, ${entry.title})}">
+    A new entry is available at SwedishGuys on the blog "{0}" with title: {1}. Don't hesitate and take a look!
+</p>
+<p>
+    <span th:text="#{email.newsletter.text2}">Regards, </span>
+    <br/>
+    <em th:text="#{email.newsletter.signature}">Anna, Jules, Matthieu, Maxime and Reatha</em>
+</p>
+</body>
+</html>

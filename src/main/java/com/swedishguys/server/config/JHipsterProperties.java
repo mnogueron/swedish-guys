@@ -482,10 +482,10 @@ public class JHipsterProperties {
         public String[] getDisplayOnActiveProfiles() {
             return displayOnActiveProfiles;
         }
-        
+
         public void setDisplayOnActiveProfiles(String[] displayOnActiveProfiles) {
             this.displayOnActiveProfiles = displayOnActiveProfiles;
         }
-    }  
+    }
 
 }
