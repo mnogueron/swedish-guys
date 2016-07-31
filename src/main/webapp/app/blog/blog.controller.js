@@ -5,9 +5,9 @@
         .module('swedishguysApp')
         .controller('BlogSpaceController', BlogSpaceController);
 
-    BlogSpaceController.$inject = ['$scope', '$state', '$sce', '$stateParams', '$locale', 'POSTS_NUMBER', 'EntriesAccess', 'EntriesAccessByDate', 'BoundingDates', 'EntriesNumber'];
+    BlogSpaceController.$inject = ['$scope', '$state', '$sce', '$stateParams', '$locale', 'POSTS_NUMBER', 'EntriesAccess', 'EntriesAccessByDate', 'BoundingDates', 'EntriesNumber', 'FollowerByEmail', 'PublicFollower'];
 
-    function BlogSpaceController ($scope, $state, $sce, $stateParam, $locale, POSTS_NUMBER, EntriesAccess, EntriesAccessByDate, BoundingDates, EntriesNumber) {
+    function BlogSpaceController ($scope, $state, $sce, $stateParam, $locale, POSTS_NUMBER, EntriesAccess, EntriesAccessByDate, BoundingDates, EntriesNumber, FollowerByEmail, PublicFollower) {
 
         var vm = this;
         vm.blogName = $stateParam.blogName;
@@ -119,7 +119,7 @@
 
         $scope.isDefaultChecked = function(owner){
             console.log(owner);
-        }
+        };
 
         $scope.showSelected = function(node, parent){
             console.log(node, parent);
@@ -129,6 +129,73 @@
                 var date = month +"-" + parent.content;
                 $scope.changePage(date);
             }
+        };
+
+        var onSaveSuccess = function (result) {
+            Materialize.toast('Vous avez été correctement inscrit au service de notification.', 4000);
+            $scope.$emit('swedishguysApp:followerUpdate', result);
+            vm.isSaving = false;
+            $state.go('blogspace', {blogName: vm.blogName, page: vm.page});
+        };
+
+        var onSaveError = function () {
+            Materialize.toast("Une erreur s'est produite et vous n'avez pas été correctement inscrit au service de notification.", 4000);
+            vm.isSaving = false;
+            $state.go('blogspace', {blogName: vm.blogName, page: vm.page});
+        };
+
+        vm.saveFollower = function () {
+
+            console.log("test");
+            vm.isSaving = true;
+
+            vm.follower = FollowerByEmail.get({email: vm.email}, function(){
+                console.log(vm.follower);
+                vm.follower.subscriptions = [];
+                if(vm.checked.anna){
+                    vm.follower.subscriptions.push('anna');
+                }
+                if(vm.checked.jules){
+                    vm.follower.subscriptions.push('jules');
+                }
+                if(vm.checked.matthieu){
+                    vm.follower.subscriptions.push('matthieu');
+                }
+                if(vm.checked.maxime){
+                    vm.follower.subscriptions.push('maxime');
+                }
+                if(vm.checked.reatha){
+                    vm.follower.subscriptions.push('reatha');
+                }
+                PublicFollower.update(vm.follower, onSaveSuccess, onSaveError);
+                /*if (vm.follower.id !== null) {
+                    Follower.update(vm.follower, onSaveSuccess, onSaveError);
+                } else {
+                    Follower.save(vm.follower, onSaveSuccess, onSaveError);
+                }*/
+            }, function(error){
+                if(error.status == '404'){
+                    console.log(error);
+                    vm.follower.email = vm.email;
+                    vm.follower.subscriptions = [];
+                    if(vm.checked.anna){
+                        vm.follower.subscriptions.push('anna');
+                    }
+                    if(vm.checked.jules){
+                        vm.follower.subscriptions.push('jules');
+                    }
+                    if(vm.checked.matthieu){
+                        vm.follower.subscriptions.push('matthieu');
+                    }
+                    if(vm.checked.maxime){
+                        vm.follower.subscriptions.push('maxime');
+                    }
+                    if(vm.checked.reatha){
+                        vm.follower.subscriptions.push('reatha');
+                    }
+                    PublicFollower.save(vm.follower, onSaveSuccess, onSaveError);
+                }
+            });
         };
 
         vm.dates = BoundingDates.query({owner:vm.blogName}, function(){

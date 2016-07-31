@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="section">
+        <div class="row">
+            <div class="col s12 center">
+
+                <form name="editForm" role="form" novalidate show-validation>
+                    <h4>Se désabonner</h4>
+                    <p class="center"><i>Entrez votre adresse mail pour vous désabonner.</i></p>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input type="text" class="form-control" name="email" id="field_email"
+                                   ng-model="vm.email"
+                                   required />
+                            <div ng-show="editForm.email.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.email.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button ng-click="vm.removeFollower()" ng-disabled="editForm.$invalid || isSaving" class="modal-action modal-close waves-effect waves-green btn-flat">Accepter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

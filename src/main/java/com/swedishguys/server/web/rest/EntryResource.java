@@ -38,6 +38,7 @@ public class EntryResource {
     private final Logger log = LoggerFactory.getLogger(EntryResource.class);
 
     private static final String ENTRY = "entry";
+    private static final String BASE_URL = "baseUrl";
 
     @Inject
     private EntryRepository entryRepository;
@@ -152,6 +153,10 @@ public class EntryResource {
         Locale locale = Locale.forLanguageTag(entry.getBlog().getUser().getLangKey());
         Context context = new Context(locale);
         context.setVariable(ENTRY, entry);
+
+        // TODO change for new address
+        String baseUrl = "http://www.ricm-in-sweden.net/unsubscribe";
+        context.setVariable(BASE_URL, baseUrl);
         String content = templateEngine.process("newsletterEmail", context);
         String subject = messageSource.getMessage("email.newsletter.title", null, locale);
         for(int i = 0; i < followersPurged.size(); i++){
