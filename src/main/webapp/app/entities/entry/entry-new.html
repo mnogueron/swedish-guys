@@ -38,7 +38,7 @@
             <div class="modal-body">
 
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group">
+                <div input-field class="form-group">
                     <label class="control-label" translate="swedishguysApp.entry.title" for="field_title">Title</label>
                     <input type="text" class="form-control" name="title" id="field_title"
                            ng-model="vm.entry.title"
@@ -51,9 +51,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="input-field col s12">
-                        <label translate="swedishguysApp.entry.content" for="field_content">Content</label>
-                        <textarea class="materialize-textarea" name="content" id="field_content" ng-model="vm.entry.content" required />
+                    <div class="col s12">
+                        <div input-field>
+                            <label translate="swedishguysApp.entry.content" for="field_content">Content</label>
+                            <textarea class="materialize-textarea" name="content" id="field_content"
+                                  ng-model="vm.entry.content"
+                                  required></textarea>
+                        </div>
                     </div>
 
 
@@ -82,9 +86,9 @@
                     <input type="text" data-provide="typeahead" class="form-control" name="tags" id="field_tags"
                            ng-model="vm.tag"/>
                 </div>
-                <div class="form-group" has-authority="ROLE_ADMIN">
+                <div input-field class="form-group" has-authority="ROLE_ADMIN">
                     <label translate="swedishguysApp.entry.blog" for="field_blog">Blog</label>
-                    <select class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id">
+                    <select material-select watch class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id">
                         <option value=""></option>
                     </select>
                 </div>

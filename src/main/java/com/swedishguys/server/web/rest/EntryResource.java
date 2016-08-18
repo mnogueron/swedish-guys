@@ -154,8 +154,7 @@ public class EntryResource {
         Context context = new Context(locale);
         context.setVariable(ENTRY, entry);
 
-        // TODO change for new address
-        String baseUrl = "http://www.ricm-in-sweden.net/unsubscribe";
+        String baseUrl = "http://ricm-in-sweden.com/#/unsubscribe";
         context.setVariable(BASE_URL, baseUrl);
         String content = templateEngine.process("newsletterEmail", context);
         String subject = messageSource.getMessage("email.newsletter.title", null, locale);
@@ -202,7 +201,7 @@ public class EntryResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Entry> getAllEntries() {
-        log.debug("REST request to get all Entries");
+        log.debug("REST request to get all Entries with no distinction");
         List<Entry> entries = entryRepository.findAllWithEagerRelationships();
         return entries;
     }

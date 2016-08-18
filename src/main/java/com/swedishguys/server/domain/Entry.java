@@ -2,6 +2,7 @@ package com.swedishguys.server.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -30,7 +31,7 @@ public class Entry implements Serializable {
     private String title;
 
     @NotNull
-    @Lob
+    @Type(type="org.hibernate.type.StringClobType")
     @Column(name = "content", nullable = false)
     private String content;
 

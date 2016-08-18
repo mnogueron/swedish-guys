@@ -3,7 +3,7 @@
 }
 
 .slider .indicators {
-    z-index: 2;
+    z-index: 3 !important;
     bottom: 10px;
 }
 
@@ -52,3 +52,9 @@ li .dropdown-button {
     box-shadow: initial;
     background: initial;
 }
+
+/* Pagination */
+/*.pagination > .active > a {
+    background-color: transparent;
+    border-color: transparent;
+}*/

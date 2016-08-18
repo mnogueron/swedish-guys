@@ -32,27 +32,32 @@
             case "anna":
                 vm.image = "content/images/anna.jpg";
                 vm.name = "Anna";
+                vm.age = "25 ans";
                 vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
                 break;
             case "jules":
                 vm.image = "content/images/jules.jpg";
                 vm.name = "Jules";
+                vm.age = "22 ans";
                 vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
                 break;
             case "matthieu":
                 vm.image = "content/images/matthieu.jpg";
                 vm.name = "Matthieu";
-                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                vm.age = "22 ans";
+                vm.detail = "Féru de treks et de randonnées, c'est après avoir fait un rapide passage par Malmö et Göteborg lors d'un roadtrip en Norvège, que la Suède s'est imposée comme destination évidente d'échange ! Bienvenue dans les contrées aux paysages sauvages, là où le soleil se couche pendant 6 mois et reste les yeux ouverts le reste du temps. La course à la découverte est lancée ! Välkommen i Sevrige! :)"
                 break;
             case "maxime":
                 vm.image = "content/images/maxime.jpg";
                 vm.name = "Maxime";
-                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                vm.age = "21 ans";
+                vm.detail = "Je voyage depuis tout jeune avec mes parents, c'est donc logiquement que je profite de l'occasion qui m'est offerte d'étudier un semestre à l'étranger ! J'espère que le partage de mon expérience vous encouragera à venir visiter le pays des Élans, des Kanelbullar et d'IKEA ;)"
                 break;
             case "reatha":
                 vm.image = "content/images/reatha.jpg";
                 vm.name = "Reatha";
-                vm.detail = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                vm.age = "22 ans";
+                vm.detail = "\"Wanderlust (noun): a strong, innate desire to rove or travel about.\" Je pars à la découverte de la Scandinavie pour 8 mois alors... À moi l'aventure Erasmus !"
                 break;
             default:
                 break;

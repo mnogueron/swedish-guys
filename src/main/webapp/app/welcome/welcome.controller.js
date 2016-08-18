@@ -21,31 +21,36 @@
                 image: "content/images/anna.jpg",
                 name: "Anna",
                 destination: '/blogspace/anna',
+                age: "25 ans",
                 detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
             },
             {
                 image: "content/images/jules.jpg",
                 name: "Jules",
                 destination: '/blogspace/jules',
+                age: "22 ans",
                 detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
             },
             {
                 image: "content/images/matthieu.jpg",
                 name: "Matthieu",
                 destination: '/blogspace/matthieu',
-                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                age: "22 ans",
+                detail: "Féru de treks et de randonnées, c'est après avoir fait un rapide passage par Malmö et Göteborg lors d'un roadtrip en Norvège, que la Suède s'est imposée comme destination évidente d'échange ! Bienvenue dans les contrées aux paysages sauvages, là où le soleil se couche pendant 6 mois et reste les yeux ouverts le reste du temps. La course à la découverte est lancée ! Välkommen i Sevrige! :)"
             },
             {
                 image: "content/images/maxime.jpg",
                 name: "Maxime",
                 destination: '/blogspace/maxime',
-                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                age: "21 ans",
+                detail: "Je voyage depuis tout jeune avec mes parents, c'est donc logiquement que je profite de l'occasion qui m'est offerte d'étudier un semestre à l'étranger ! J'espère que le partage de mon expérience vous encouragera à venir visiter le pays des Élans, des Kanelbullar et d'IKEA ;)"
             },
             {
                 image: "content/images/reatha.jpg",
                 name: "Reatha",
                 destination: '/blogspace/reatha',
-                detail: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi mauris, lobortis pellentesque est quis, vehicula vestibulum felis.Sed ornare tortor nec blandit sodales. Morbi fringilla vulputate aliquam. Etiam semper tristique tortor, eget cursus mi. Sed pulvinar tristique dapibus. Duis velit ex, commodo id ornare quis, ornare et felis. Nam."
+                age: "22 ans",
+                detail: "\"Wanderlust (noun): a strong, innate desire to rove or travel about.\" Je pars à la découverte de la Scandinavie pour 8 mois alors... À moi l'aventure Erasmus !"
             }
         ];
 

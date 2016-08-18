@@ -14,13 +14,17 @@
         return directive;
 
         function linkFunc(scope, element, attrs) {
+
+            console.log(attrs);
+
             var authority = attrs.hasAuthority.replace(/\s+/g, '');
 
             var setVisible = function () {
-                    element.removeClass('hidden');
+                    element.removeClass('hide');
                 },
                 setHidden = function () {
-                    element.addClass('hidden');
+                    console.log("hidden");
+                    element.addClass('hide');
                 },
                 defineVisibility = function (reset) {
 

@@ -10,7 +10,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
-   <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">-->
    <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css">
    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
    <link rel="stylesheet" href="bower_components/angular-tree-control/css/tree-control.css">
@@ -20,8 +19,12 @@
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
 
+    <!-- build:css content/css/home.css -->
+    <link rel="stylesheet" href="content/css/home.css">
+    <!-- endbuild -->
+
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Include Font Awesome. -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -32,7 +35,7 @@
     <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    <page-ribbon></page-ribbon>
+    <!--<page-ribbon></page-ribbon>-->
 
     <header>
         <div ui-view="navbar" ng-cloak></div>
@@ -56,7 +59,7 @@
             <div class="row">
                 <div class="col l6 s12">
                     <h5 class="white-text">Petit mot de l'équipe</h5>
-                    <p class="grey-text text-lighten-4">Nous espèrons de tout coeur que ce site vous plaira. Si jamais vous avez des remarques, merci de les adresser à cette adresse email : </p>
+                    <p class="grey-text text-lighten-4">Nous espèrons de tout coeur que ce site vous plaira. Si jamais vous avez des remarques, merci de les adresser à cette adresse email : <a href="mailto:ricm.in.sweden.contact@gmail.com" class="amber">ricm.in.sweden.contact@gmail.com</a></p>
                 </div>
                 <div class="col l4 offset-l2 s12">
                     <h5 class="white-text">Liens</h5>
