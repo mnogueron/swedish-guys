@@ -4,8 +4,8 @@
     angular
         .module('swedishguysApp')
         .constant('VERSION', "0.0.1-SNAPSHOT")
-        .constant('DEBUG_INFO_ENABLED', true)
+        .constant('DEBUG_INFO_ENABLED', false)
         .constant('POSTS_NUMBER', 5)
-        .constant('PICTURES_NUMBER', 3)
+        .constant('PICTURES_NUMBER', 9)
 ;
 })();

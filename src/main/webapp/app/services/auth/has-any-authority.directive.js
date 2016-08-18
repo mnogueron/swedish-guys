@@ -17,10 +17,10 @@
             var authorities = attrs.hasAnyAuthority.replace(/\s+/g, '').split(',');
 
             var setVisible = function () {
-                    element.removeClass('hidden');
+                    element.removeClass('hide');
                 },
                 setHidden = function () {
-                    element.addClass('hidden');
+                    element.addClass('hide');
                 },
                 defineVisibility = function (reset) {
                     var result;

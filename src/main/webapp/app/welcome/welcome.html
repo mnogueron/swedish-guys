@@ -53,24 +53,28 @@
 
                 <div class="col s12 m4 hoverable hand-cursor" ui-sref="blogspace({blogName:profile.name.toLowerCase()})" ng-if="$index < 3">
                     <div class="icon-block">
-                        <h2 class="center">
-                            <img ng-src="{{profile.image}}" class="circle responsive-img" style="max-width:200px">
+                        <h2 class="center col s8 push-s2">
+                            <img ng-src="{{profile.image}}" class="circle responsive-img">
                         </h2>
+                        <div class="col s12">
+                            <h5 class="center">{{profile.name}}</h5>
+                            <h6 class="center"><i>{{profile.age}}</i></h6>
+                            <p class="light center">{{profile.detail}}</p>
+                        </div>
                     </div>
-                    <h5 class="center">{{profile.name}}</h5>
-                    <h6 class="center"><i>{{profile.age}}</i></h6>
-                    <p class="light center">{{profile.detail}}</p>
                 </div>
 
-                <div class="col s12 m6 hoverable hand-cursor" ng-click="go(profile.destination)" ng-if="$index >= 3">
+                <div class="col s12 m6 hoverable hand-cursor" ui-sref="blogspace({blogName:profile.name.toLowerCase()})" ng-if="$index >= 3">
                     <div class="icon-block">
-                        <h2 class="center">
-                            <img ng-src="{{profile.image}}" class="circle responsive-img" style="max-width:200px">
+                        <h2 class="center col s8 push-s2">
+                            <img ng-src="{{profile.image}}" class="circle responsive-img">
                         </h2>
+                        <div class="col s12">
+                            <h5 class="center">{{profile.name}}</h5>
+                            <h6 class="center"><i>{{profile.age}}</i></h6>
+                            <p class="light center">{{profile.detail}}</p>
+                        </div>
                     </div>
-                    <h5 class="center">{{profile.name}}</h5>
-                    <h6 class="center"><i>{{profile.age}}</i></h6>
-                    <p class="light center">{{profile.detail}}</p>
                 </div>
 
             </div>
