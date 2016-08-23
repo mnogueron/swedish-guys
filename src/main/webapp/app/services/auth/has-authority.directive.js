@@ -15,8 +15,6 @@
 
         function linkFunc(scope, element, attrs) {
 
-            console.log(attrs);
-
             var authority = attrs.hasAuthority.replace(/\s+/g, '');
 
             var setVisible = function () {

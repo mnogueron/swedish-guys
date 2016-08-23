@@ -42,7 +42,7 @@
                 image: "content/images/maxime.jpg",
                 name: "Maxime",
                 destination: '/blogspace/maxime',
-                age: "21 ans",
+                age: "22 ans",
                 detail: "Je voyage depuis tout jeune avec mes parents, c'est donc logiquement que je profite de l'occasion qui m'est offerte d'étudier un semestre à l'étranger ! J'espère que le partage de mon expérience vous encouragera à venir visiter le pays des Élans, des Kanelbullar et d'IKEA ;)"
             },
             {

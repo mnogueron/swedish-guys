@@ -175,7 +175,7 @@ gulp.task('ngconstant:dev', function () {
             VERSION: util.parseVersion(),
             DEBUG_INFO_ENABLED: true,
             POSTS_NUMBER: 5,
-            PICTURES_NUMBER: 3
+            PICTURES_NUMBER: 9
         },
         template: config.constantTemplate,
         stream: true

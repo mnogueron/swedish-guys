@@ -41,7 +41,8 @@
 
         $scope.$watch('vm.entry.content', function() {
             console.log(vm.entry.content);
-            vm.contentDisplayed = $sce.trustAsHtml(vm.entry.content);
+            /*vm.contentDisplayed = $sce.trustAsHtml(vm.entry.content);*/
+            vm.contentDisplayed = vm.entry.content;
         });
 
         var onSaveError = function () {

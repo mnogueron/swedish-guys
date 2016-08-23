@@ -50,7 +50,7 @@
             case "maxime":
                 vm.image = "content/images/maxime.jpg";
                 vm.name = "Maxime";
-                vm.age = "21 ans";
+                vm.age = "22 ans";
                 vm.detail = "Je voyage depuis tout jeune avec mes parents, c'est donc logiquement que je profite de l'occasion qui m'est offerte d'étudier un semestre à l'étranger ! J'espère que le partage de mon expérience vous encouragera à venir visiter le pays des Élans, des Kanelbullar et d'IKEA ;)"
                 break;
             case "reatha":
@@ -90,9 +90,9 @@
                 // get entries
                 vm.entries = EntriesAccess.query({owner:vm.blogName, nb: POSTS_NUMBER, offset: POSTS_NUMBER*(vm.page-1)}, function(){
                     console.log(vm.entries);
-                    vm.entries.forEach(function(element, index, array){
+                    /*vm.entries.forEach(function(element, index, array){
                         array[index].content = $sce.trustAsHtml(element.content);
-                    })
+                    })*/
                 });
             });
         }

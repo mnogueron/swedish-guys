@@ -17,13 +17,11 @@
         {
             "relationshipName": "user",
             "otherEntityName": "user",
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipValidateRules": [
                 "required"
             ],
-            "otherEntityField": "login",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "picture"
+            "otherEntityField": "login"
         }
     ],
     "fields": [

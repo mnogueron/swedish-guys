@@ -1,4 +1,3 @@
-
 <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
     <div class="modal-header">
@@ -9,16 +8,16 @@
         <div class="form-group" ng-show="vm.picture.id">
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                    ng-model="vm.picture.id" readonly />
+                   ng-model="vm.picture.id" readonly />
         </div>
         <div class="form-group">
             <label class="control-label" translate="swedishguysApp.picture.url" for="field_url">Url</label>
             <input type="text" class="form-control" name="url" id="field_url"
-                    ng-model="vm.picture.url"
-                    required />
+                   ng-model="vm.picture.url"
+                   required />
             <div ng-show="editForm.url.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.url.$error.required" translate="entity.validation.required">
+                   ng-show="editForm.url.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
             </div>
@@ -26,8 +25,8 @@
         <div class="form-group">
             <label class="control-label" translate="swedishguysApp.picture.content" for="field_content">Content</label>
             <input type="text" class="form-control" name="content" id="field_content"
-                    ng-model="vm.picture.content"
-                     />
+                   ng-model="vm.picture.content"
+            />
         </div>
 
         <div input-field class="form-group">
@@ -50,7 +49,7 @@
         </div>
         <div ng-show="editForm.user.$invalid">
             <p class="help-block"
-                ng-show="editForm.user.$error.required" translate="entity.validation.required">
+               ng-show="editForm.user.$error.required" translate="entity.validation.required">
                 This field is required.
             </p>
         </div>

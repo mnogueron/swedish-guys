@@ -18,7 +18,7 @@
                                     </span>
                                 </div>
                                 <div class="card-content">
-                                    <p class="left-align" ng-bind-html="entry.content"></p>
+                                    <p class="left-align" compile="entry.content"></p>
                                 </div>
                                 <div class="card-action" ng-if="entry.tags.length != 0">
                                     <div class="chip" ng-repeat="tag in entry.tags">

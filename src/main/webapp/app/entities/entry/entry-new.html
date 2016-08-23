@@ -20,7 +20,7 @@
                     </span>
                             </div>
                             <div class="card-content">
-                                <p class="left-align" ng-bind-html="vm.contentDisplayed "></p>
+                                <p class="left-align" compile="vm.contentDisplayed "></p>
                             </div>
                             <div class="card-action" ng-if="vm.tagsDisplay.length != 0">
 
@@ -50,7 +50,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="form-group">
+                <div input-field class="form-group">
                     <div class="col s12">
                         <div input-field>
                             <label translate="swedishguysApp.entry.content" for="field_content">Content</label>
@@ -68,7 +68,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="form-group">
+                <div input-field class="form-group">
                     <label class="control-label" translate="swedishguysApp.entry.picture" for="field_picture">Picture</label>
                     <input type="text" class="form-control" name="picture" id="field_picture"
                            ng-model="vm.entry.picture"
@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div input-field class="form-group">
                     <label class="control-label" translate="swedishguysApp.entry.tag" for="field_tags">Tag</label>
                     <input type="text" data-provide="typeahead" class="form-control" name="tags" id="field_tags"
                            ng-model="vm.tag"/>

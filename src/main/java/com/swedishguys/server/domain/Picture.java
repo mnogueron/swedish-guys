@@ -50,9 +50,8 @@ public class Picture implements Serializable {
                inverseJoinColumns = @JoinColumn(name="blogs_id", referencedColumnName="ID"))
     private Set<Blog> blogs = new HashSet<>();
 
-    @OneToOne
+    @ManyToOne
     @NotNull
-    @JoinColumn(unique = true)
     private User user;
 
     public Long getId() {
