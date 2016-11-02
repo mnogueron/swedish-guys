@@ -22,7 +22,7 @@
                     return scope.$eval(attrs.compile);
                 },
                 function(value) {
-                     console.log(value);
+                     //console.log(value);
 
                     // when the 'compile' expression changes
                     // assign it into the current DOM

@@ -1,111 +1,224 @@
 
-<div class="container">
+<div class="container" style="width: 90%; max-width: initial;">
     <h2><span translate="swedishguysApp.entry.detail.title">Entry</span></h2>
     <div class="modal-content-inner" style="padding:24px;">
         <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
-            <h4>Aperçu</h4>
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="row">
+                        <h4 class="modal-title" id="myEntryLabel" translate="swedishguysApp.entry.home.createOrEditLabel">Create an Entry</h4>
+                    </div>
 
-            <div class="col s12 l8">
-                <div class="row">
-                    <div class="col s12 m12">
-                        <div class="card hoverable">
-                            <div class="card-image valign-wrapper">
-                                <div class="valign" style="width:100%;">
-                                    <img src="{{vm.entry.picture}}">
-                                </div>
-                    <span class="card-title">
-                        {{vm.entry.title}}
-                        <h6>{{vm.entry.date | date : 'dd-MM-yyyy - HH:mm'}}</h6>
-                    </span>
-                            </div>
-                            <div class="card-content">
-                                <p class="left-align" compile="vm.contentDisplayed "></p>
-                            </div>
-                            <div class="card-action" ng-if="vm.tagsDisplay.length != 0">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="modal-body">
 
-                                <div class="chip" ng-repeat="tag in vm.tagsDisplay">
-                                    {{ tag }}
+                                <jhi-alert-error></jhi-alert-error>
+                                <div class="row">
+                                    <div input-field class="form-group">
+                                        <label class="control-label" translate="swedishguysApp.entry.title" for="field_title">Title</label>
+                                        <input type="text" class="form-control" name="title" id="field_title"
+                                               ng-model="vm.entry.title"
+                                               required />
+                                        <div ng-show="editForm.title.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="row">
+                                    <div input-field class="form-group">
+                                        <div input-field>
+                                            <label translate="swedishguysApp.entry.content" for="field_content">Content</label>
+                                            <textarea type="text" class="materialize-textarea" name="content" id="field_content"
+                                                      ng-model="vm.entry.content"
+                                                      required>
+                                            </textarea>
+                                        </div>
+
+                                        <div ng-show="editForm.content.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.content.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div input-field class="form-group">
+                                        <label class="control-label" translate="swedishguysApp.entry.picture" for="field_picture">Picture</label>
+                                        <input type="text" class="form-control" name="picture" id="field_picture"
+                                               ng-model="vm.entry.picture"
+                                               required />
+                                        <div ng-show="editForm.picture.$invalid">
+                                            <p class="help-block"
+                                               ng-show="editForm.picture.$error.required" translate="entity.validation.required">
+                                                This field is required.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div input-field class="form-group">
+                                        <label class="control-label" translate="swedishguysApp.entry.tag" for="field_tags">Tag</label>
+                                        <input type="text" data-provide="typeahead" class="form-control" name="tags" id="field_tags"
+                                               ng-model="vm.tag"/>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div input-field class="form-group" has-authority="ROLE_ADMIN">
+                                        <label translate="swedishguysApp.entry.blog" for="field_blog">Blog</label>
+                                        <select material-select watch class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <h4 class="modal-title" id="myEntryLabel" translate="swedishguysApp.entry.home.createOrEditLabel">Create an Entry</h4>
 
-            <div class="modal-body">
+                <div class="col s12 m6">
+                    <h4>Aperçu</h4>
+                    <div class="card hoverable">
+                        <div class="card-image valign-wrapper">
+                            <div class="valign" style="width:100%;">
+                                <img src="{{vm.entry.picture}}">
+                            </div>
+                            <span class="card-title">
+                                {{vm.entry.title}}
+                                <h6>{{vm.entry.date | date : 'dd-MM-yyyy - HH:mm'}}</h6>
+                            </span>
+                        </div>
+                        <div class="card-content">
+                            <p class="left-align" compile="vm.contentDisplayed "></p>
+                        </div>
+                        <div class="card-action" ng-if="vm.tagsDisplay.length != 0">
 
-                <jhi-alert-error></jhi-alert-error>
-                <div input-field class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.title" for="field_title">Title</label>
-                    <input type="text" class="form-control" name="title" id="field_title"
-                           ng-model="vm.entry.title"
-                           required />
-                    <div ng-show="editForm.title.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.title.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                    </div>
-                </div>
-                <div input-field class="form-group">
-                    <div class="col s12">
-                        <div input-field>
-                            <label translate="swedishguysApp.entry.content" for="field_content">Content</label>
-                            <textarea class="materialize-textarea" name="content" id="field_content"
-                                  ng-model="vm.entry.content"
-                                  required></textarea>
+                            <div class="chip" ng-repeat="tag in vm.tagsDisplay">
+                                {{ tag }}
+                            </div>
                         </div>
                     </div>
-
-
-                    <div ng-show="editForm.content.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.content.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                    </div>
-                </div>
-                <div input-field class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.picture" for="field_picture">Picture</label>
-                    <input type="text" class="form-control" name="picture" id="field_picture"
-                           ng-model="vm.entry.picture"
-                           required />
-                    <div ng-show="editForm.picture.$invalid">
-                        <p class="help-block"
-                           ng-show="editForm.picture.$error.required" translate="entity.validation.required">
-                            This field is required.
-                        </p>
-                    </div>
-                </div>
-
-                <div input-field class="form-group">
-                    <label class="control-label" translate="swedishguysApp.entry.tag" for="field_tags">Tag</label>
-                    <input type="text" data-provide="typeahead" class="form-control" name="tags" id="field_tags"
-                           ng-model="vm.tag"/>
-                </div>
-                <div input-field class="form-group" has-authority="ROLE_ADMIN">
-                    <label translate="swedishguysApp.entry.blog" for="field_blog">Blog</label>
-                    <select material-select watch class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id">
-                        <option value=""></option>
-                    </select>
                 </div>
             </div>
         </form>
     </div>
 
 
-    <button type="submit"
-    onclick="window.history.back()"
-    class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
-    </button>
-    <button type="button" class="btn btn-default" ng-click="vm.clear()">
-        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
-    </button>
-    <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary" ng-click="vm.save()">
-        <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
-    </button>
+    <div class="row">
+        <div class="col s12">
+            <div class="center">
+                <button type="submit"
+                        onclick="window.history.back()"
+                        class="btn btn-info">
+                    <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+                </button>
+                <button type="button" class="btn btn-default" ng-click="vm.clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.clear">Clear</span>
+                </button>
+                <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary" ng-click="vm.save()">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script type="text/ng-template" id="article_template.html">
+    <h6><i>Sous-titre</i></h6>
+    <div class="divider"></div>
+    <br>
+
+    <p style="word-wrap: break-word; text-align:justify;">
+        Un text justifié qui prend toute la place de la page
+    </p>
+    <br>
+
+    <h5>Séparer la page en plusieurs parties</h5>
+    <div class="divider"></div>
+    <br>
+
+    On peut découper la page en différentes colones comme ceci :
+    <br>
+
+    <div class="row">
+        <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">1</div>
+        <div class="col s1" style="text-align:center">2</div>
+        <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">3</div>
+        <div class="col s1" style="text-align:center">4</div>
+        <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">5</div>
+        <div class="col s1" style="text-align:center">6</div>
+        <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">7</div>
+        <div class="col s1" style="text-align:center">8</div>
+        <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">9</div>
+        <div class="col s1" style="text-align:center">10</div>
+        <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">11</div>
+        <div class="col s1" style="text-align:center">12</div>
+    </div>
+
+    La page peut contenir jusqu'à 12 colonnes, qui peuvent être redécoupées comme ceci:
+    <br><br>
+
+    <div class="row">
+        <div class="col s12 m6" style="border: 1px solid black">
+            Cette section est une section de taille "s12 m6".<br>
+            - s12 pour que la section prenne toute la place de l'article sur de petites résolution (12 colonnes) <br>
+            - m6 pour que la section ne prenne que la moitié de la place sur des résolutions un peu plus importantes (6 colonnes)<br>
+            <div class="row">
+                <div class="col s12 m6" style="border: 1px solid black">
+                    Une fois passé dans une div avec la class <i>"row"</i>, la page est redécoupée en 12 colonnes, que l'on peut encore utiliser dans de nouvelles sections.
+                </div>
+                <div class="col s12 m6" style="border: 1px solid black">Comme dans notre situation</div>
+            </div>
+        </div>
+    </div>
+
+    Pour plus d'informations : <a href="http://materializecss.com/grid.html">Materialize Grid System</a><br>
+
+    <h5>Ajouter des images et des vidéos</h5>
+    <div class="divider"></div>
+    <br>
+
+    <div class="row">
+        <div class="col s12 m6">
+
+            <img materialboxed class="materialboxed responsive-img" src="http://www.elephorm.com/system/files/imagecache/thumb_full_widescreen/formations/[training-dir]/visuel/tutoriel-materialize.jpg" data-caption="MaterializeCSS">
+
+        </div>
+
+        <div class="col s12 m6">
+            On peut ajouter des images en utilisant la syntaxe suivante : <br>
+            <b>< img materialboxed class="materialboxed responsive-img" src="url_de_l'image" data-caption="Titre de la photo"></b>
+            <br> ATTENTION l'image ne peut pas tournée, elle doit être correctement orienté quand vous l'hébergez.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m6">
+
+            Ou ajouter des vidéos : <br>
+            <b>< iframe width="100%" height="the_height_you_want" src="url_video" frameborder="0" allowfullscreen></iframe></b>
+
+        </div>
+
+        <div class="col s12 m6">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/TSI1TIsAFGI" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <br>
+
+    <p style="word-wrap: break-word; text-align:center;">
+        Pour plus d'informations : <a href="http://materializecss.com/">MaterializeCSS</a>
+    </p>
+</script>
+

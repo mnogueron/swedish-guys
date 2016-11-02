@@ -5,15 +5,24 @@
         .module('swedishguysApp')
         .controller('NewEntryController', NewEntryController);
 
-    NewEntryController.$inject = ['$scope', '$rootScope', '$sce', '$stateParams', 'Principal', 'DataUtils', 'entity', 'Entry', 'Blog', 'Tag'];
+    NewEntryController.$inject = ['$scope', '$rootScope', '$sce', '$stateParams', 'Principal', 'DataUtils', 'entity', 'Entry', 'Blog', 'Tag', '$templateCache', '$interval'];
 
-    function NewEntryController($scope, $rootScope, $sce, $stateParams, Principal, DataUtils, entity, Entry, Blog, Tag) {
+    function NewEntryController($scope, $rootScope, $sce, $stateParams, Principal, DataUtils, entity, Entry, Blog, Tag, $templateCache, $interval) {
+
+        var articleTemplate = $templateCache.get("article_template.html");
+        var updateNeeded = false;
+        var updateFrequency = 5000;
+        var entrySaved = false;
+
         var vm = this;
         vm.entry = entity;
         vm.blogs = Blog.query();
         vm.tags = Tag.query();
         vm.tag = "";
         vm.entry.blog = undefined;
+
+        vm.entry.content = articleTemplate;
+        vm.contentDisplayed = vm.entry.content;
 
         if($stateParams.id != null){
             vm.entry = Entry.get({id:$stateParams.id}, function(){
@@ -25,12 +34,18 @@
 
         getAccount();
 
-        function getAccount() {
-            Principal.identity().then(function(account) {
-                vm.account = account;
-                vm.isAuthenticated = Principal.isAuthenticated;
-            });
-        }
+        $interval(function(){
+            if(updateNeeded){
+                //console.log(vm.entry.content);
+                /*vm.contentDisplayed = $sce.trustAsHtml(vm.entry.content);*/
+
+                vm.contentDisplayed = vm.entry.content;
+                console.log(vm);
+                updateNeeded = false;
+
+                Materialize.toast('<i class="small material-icons" style="margin-right:10px">info_outline</i>L\'aperçu a été mis à jour', 4000);
+            }
+        }, updateFrequency);
 
         $scope.$watch('vm.tag', function() {
                 vm.tagsDisplay = vm.tag.split(';').filter(function(element, index, self){return element != "" && self.indexOf(element) == index;});
@@ -40,9 +55,9 @@
         });
 
         $scope.$watch('vm.entry.content', function() {
-            console.log(vm.entry.content);
-            /*vm.contentDisplayed = $sce.trustAsHtml(vm.entry.content);*/
-            vm.contentDisplayed = vm.entry.content;
+            if(!updateNeeded){
+                updateNeeded = true;
+            }
         });
 
         var onSaveError = function () {
@@ -52,6 +67,16 @@
         var onSaveSuccess = function (result) {
             $scope.$emit('swedishguysApp:entryUpdate', result);
             vm.isSaving = false;
+
+            console.log(result);
+
+            if(vm.entry.id === null){
+                Materialize.toast('<i class="small material-icons" style="margin-right:10px">info_outline</i>Le billet a été sauvegardé', 4000);
+            }
+            else{
+                Materialize.toast('<i class="small material-icons" style="margin-right:10px">info_outline</i>Le billet a été mis à jour', 4000);
+            }
+            vm.entry.id = result.id;
         };
 
         vm.updateTags = function(){
@@ -85,7 +110,7 @@
                         vm.isSaving = true;
                         vm.entry.date = new Date();
                         if(vm.entry.blog === undefined){
-                            console.log(vm.blogs);
+                            //console.log(vm.blogs);
                             for(var i = 0; i < vm.blogs.length; i++){
                                 if(vm.blogs[i].user.login == vm.account.login){
                                     vm.entry.blog = vm.blogs[i];
@@ -94,18 +119,18 @@
                             }
                         }
                         vm.entry.tags = [];
-                        console.log(vm.tagsDisplay);
+                        //console.log(vm.tagsDisplay);
                         for(var i = 0; i < vm.tagsDisplay.length; i++){
                             for(var j = 0; j < vm.tags.length; j++) {
-                                console.log(vm.tags[j]);
-                                console.log(vm.tagsDisplay[i]);
+                                //console.log(vm.tags[j]);
+                                //console.log(vm.tagsDisplay[i]);
                                 if (vm.tags[j].label == vm.tagsDisplay[i]) {
                                     vm.entry.tags.push(vm.tags[j]);
                                     break;
                                 }
                             }
                         }
-                        console.log(vm.entry);
+                        //console.log(vm.entry);
                         if (vm.entry.id !== null) {
                             Entry.update(vm.entry, onSaveSuccess, onSaveError);
                         } else {
@@ -126,6 +151,13 @@
             vm.entry.blog = undefined;
             console.log(vm.entry);
         };
+
+        function getAccount() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+                vm.isAuthenticated = Principal.isAuthenticated;
+            });
+        }
 
         vm.openFile = DataUtils.openFile;
         vm.byteSize = DataUtils.byteSize;

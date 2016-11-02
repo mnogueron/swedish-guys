@@ -1,0 +1,86 @@
+<script type="text/ng-template" id="article_template.html">
+    <h6><i>Sous-titre</i></h6>
+    <div class="divider"></div>
+    <br>
+
+    <p style="word-wrap: break-word; text-align:justify;">
+       Un text justifié qui prend toute la place de la page
+    </p>
+    <br>
+
+    <h5>Séparer la page en plusieurs parties</h5>
+    <div class="divider"></div>
+    <br>
+
+    On peut découper la page en différentes colones comme ceci :
+    <br>
+
+    <div class="row">
+       <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">1</div>
+       <div class="col s1" style="text-align:center">2</div>
+       <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">3</div>
+       <div class="col s1" style="text-align:center">4</div>
+       <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">5</div>
+       <div class="col s1" style="text-align:center">6</div>
+       <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">7</div>
+       <div class="col s1" style="text-align:center">8</div>
+       <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">9</div>
+       <div class="col s1" style="text-align:center">10</div>
+       <div class="col s1" style="color: #d1d1d1;background-color:tomato;text-align:center">11</div>
+       <div class="col s1" style="text-align:center">12</div>
+    </div>
+
+    La page peut contenir jusqu'à 12 colonnes, qui peuvent être redécoupées comme ceci:
+    <br><br>
+
+    <div class="row">
+       <div class="col s12 m6" style="border: 1px solid black">
+          Cette section est une section de taille "s12 m6".<br>
+          - s12 pour que la section prenne toute la place de l'article sur de petites résolution (12 colonnes) <br>
+          - m6 pour que la section ne prenne que la moitié de la place sur des résolutions un peu plus importantes (6 colonnes)<br>
+          <div class="row">
+             <div class="col s12 m6" style="border: 1px solid black">
+                Une fois passé dans une div avec la class <i>"row"</i>, la page est redécoupée en 12 colonnes, que l'on peut encore utiliser dans de nouvelles sections.
+             </div>
+             <div class="col s12 m6" style="border: 1px solid black">Comme dans notre situation</div>
+          </div>
+       </div>
+    </div>
+
+    Pour plus d'informations : <a href="http://materializecss.com/grid.html">Materialize Grid System</a><br>
+
+    <h5>Ajouter des images et des vidéos</h5>
+    <div class="divider"></div>
+    <br>
+
+    <div class="row">
+       <div class="col s12 m6">
+
+          <img materialboxed class="materialboxed responsive-img" src="http://www.elephorm.com/system/files/imagecache/thumb_full_widescreen/formations/[training-dir]/visuel/tutoriel-materialize.jpg" data-caption="MaterializeCSS">
+
+       </div>
+
+       <div class="col s12 m6">
+          On peut ajouter des images en utilisant la syntaxe suivante : <br>
+          <b>< img materialboxed class="materialboxed responsive-img" src="url_de_l'image" data-caption="Titre de la photo"></b>
+          <br> ATTENTION l'image ne peut pas tournée, elle doit être correctement orienté quand vous l'hébergée.
+       </div>
+    </div>
+    <div class="row">
+       <div class="col s12 m6">
+
+          Ou ajouter des vidéos : <br>
+          <b></b>
+
+       </div>
+
+       <div class="col s12 m6">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/TSI1TIsAFGI" frameborder="0" allowfullscreen></iframe>
+       </div>
+    </div>
+    <br>
+
+    <p style="word-wrap: break-word; text-align:center;">
+    Pour plus d'informations : <a href="http://materializecss.com/">MaterializeCSS</a>
+    </p>
+</script>

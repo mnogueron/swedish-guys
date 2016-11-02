@@ -25,7 +25,7 @@ var jsTask = lazypipe()
     .pipe(uglify);
 var cssTask = lazypipe()
     .pipe(prefix)
-    .pipe(cssnano);
+    .pipe(cssnano, {zindex: false});
 
 module.exports = function() {
     var templates = fs.readFileSync(config.tmp + '/templates.js');
