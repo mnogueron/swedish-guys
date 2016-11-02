@@ -95,7 +95,7 @@
                             <span translate="global.menu.account.login">Sign in</span>
                         </a>
                     </li>
-                    <li ui-sref-active="active" ng-switch-when="false">
+                    <li ui-sref-active="active" ng-switch-when="true" has-authority="ROLE_ADMIN">
                         <a ui-sref="register">
                             <i class="material-icons left">add_circle</i>
                             <span translate="global.menu.account.register">Register</span>
