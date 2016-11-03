@@ -26,7 +26,7 @@
             matthieu: vm.blogName == 'matthieu',
             maxime: vm.blogName == 'maxime',
             reatha: vm.blogName == 'reatha'
-        }
+        };
 
         switch (vm.blogName){
             case "anna":

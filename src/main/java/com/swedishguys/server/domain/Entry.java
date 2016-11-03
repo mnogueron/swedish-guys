@@ -43,6 +43,10 @@ public class Entry implements Serializable {
     @Column(name = "picture", nullable = false)
     private String picture;
 
+    @NotNull
+    @Column(name = "published", nullable = false)
+    private Boolean published;
+
     @ManyToOne
     @NotNull
     private Blog blog;
@@ -94,6 +98,14 @@ public class Entry implements Serializable {
         this.picture = picture;
     }
 
+    public Boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
     public Blog getBlog() {
         return blog;
     }
@@ -138,6 +150,7 @@ public class Entry implements Serializable {
             ", content='" + content + "'" +
             ", date='" + date + "'" +
             ", picture='" + picture + "'" +
+            ", published='" + published + "'" +
             '}';
     }
 }

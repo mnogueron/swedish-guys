@@ -37,6 +37,10 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="published" type="bit">
+                <constraints nullable="false" />
+            </column>
+            
             <column name="blog_id" type="bigint">
                 <constraints nullable="false" />
             </column>

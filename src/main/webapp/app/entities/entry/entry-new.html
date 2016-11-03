@@ -73,6 +73,14 @@
                                 </div>
 
                                 <div class="row">
+                                    <div input-field class="form-group">
+                                        <input type="checkbox" data-provide="typeahead" class="filled-in" name="published" id="field_published"
+                                               ng-model="vm.entry.published">
+                                        <label class="control-label" translate="swedishguysApp.entry.published" for="field_published">Published</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
                                     <div input-field class="form-group" has-authority="ROLE_ADMIN">
                                         <label translate="swedishguysApp.entry.blog" for="field_blog">Blog</label>
                                         <select material-select watch class="form-control" id="field_blog" name="blog" ng-model="vm.entry.blog" ng-options="blog as blog.name for blog in vm.blogs track by blog.id">

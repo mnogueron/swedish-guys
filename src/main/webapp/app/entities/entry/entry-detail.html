@@ -30,6 +30,10 @@
                 <a ui-sref="tag-detail({id: {{tag.id}}})">{{tag.label}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
+        <dt><span translate="swedishguysApp.entry.published">Published</span></dt>
+        <dd>
+            <span>{{vm.entry.published}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

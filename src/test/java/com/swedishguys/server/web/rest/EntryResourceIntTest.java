@@ -60,6 +60,9 @@ public class EntryResourceIntTest {
     private static final String DEFAULT_PICTURE = "AAAAA";
     private static final String UPDATED_PICTURE = "BBBBB";
 
+    private static final Boolean DEFAULT_PUBLISHED = false;
+    private static final Boolean UPDATED_PUBLISHED = true;
+
     @Inject
     private EntryRepository entryRepository;
 
@@ -90,6 +93,7 @@ public class EntryResourceIntTest {
         entry.setContent(DEFAULT_CONTENT);
         entry.setDate(DEFAULT_DATE);
         entry.setPicture(DEFAULT_PICTURE);
+        entry.setPublished(DEFAULT_PUBLISHED);
     }
 
     @Test
@@ -112,6 +116,7 @@ public class EntryResourceIntTest {
         assertThat(testEntry.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testEntry.getDate()).isEqualTo(DEFAULT_DATE);
         assertThat(testEntry.getPicture()).isEqualTo(DEFAULT_PICTURE);
+        assertThat(testEntry.isPublished()).isEqualTo(DEFAULT_PUBLISHED);
     }
 
     @Test
@@ -188,6 +193,24 @@ public class EntryResourceIntTest {
 
     @Test
     @Transactional
+    public void checkPublishedIsRequired() throws Exception {
+        int databaseSizeBeforeTest = entryRepository.findAll().size();
+        // set the field null
+        entry.setPublished(null);
+
+        // Create the Entry, which fails.
+
+        restEntryMockMvc.perform(post("/api/entries")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(entry)))
+                .andExpect(status().isBadRequest());
+
+        List<Entry> entries = entryRepository.findAll();
+        assertThat(entries).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllEntries() throws Exception {
         // Initialize the database
         entryRepository.saveAndFlush(entry);
@@ -200,7 +223,8 @@ public class EntryResourceIntTest {
                 .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
                 .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
                 .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE_STR)))
-                .andExpect(jsonPath("$.[*].picture").value(hasItem(DEFAULT_PICTURE.toString())));
+                .andExpect(jsonPath("$.[*].picture").value(hasItem(DEFAULT_PICTURE.toString())))
+                .andExpect(jsonPath("$.[*].published").value(hasItem(DEFAULT_PUBLISHED.booleanValue())));
     }
 
     @Test
@@ -217,7 +241,8 @@ public class EntryResourceIntTest {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
             .andExpect(jsonPath("$.date").value(DEFAULT_DATE_STR))
-            .andExpect(jsonPath("$.picture").value(DEFAULT_PICTURE.toString()));
+            .andExpect(jsonPath("$.picture").value(DEFAULT_PICTURE.toString()))
+            .andExpect(jsonPath("$.published").value(DEFAULT_PUBLISHED.booleanValue()));
     }
 
     @Test
@@ -242,6 +267,7 @@ public class EntryResourceIntTest {
         updatedEntry.setContent(UPDATED_CONTENT);
         updatedEntry.setDate(UPDATED_DATE);
         updatedEntry.setPicture(UPDATED_PICTURE);
+        updatedEntry.setPublished(UPDATED_PUBLISHED);
 
         restEntryMockMvc.perform(put("/api/entries")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -256,6 +282,7 @@ public class EntryResourceIntTest {
         assertThat(testEntry.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testEntry.getDate()).isEqualTo(UPDATED_DATE);
         assertThat(testEntry.getPicture()).isEqualTo(UPDATED_PICTURE);
+        assertThat(testEntry.isPublished()).isEqualTo(UPDATED_PUBLISHED);
     }
 
     @Test

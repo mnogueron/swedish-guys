@@ -7,6 +7,7 @@ import com.swedishguys.server.domain.Follower;
 import com.swedishguys.server.domain.Tag;
 import com.swedishguys.server.repository.EntryRepository;
 import com.swedishguys.server.repository.FollowerRepository;
+import com.swedishguys.server.service.FollowerService;
 import com.swedishguys.server.service.MailService;
 import com.swedishguys.server.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
@@ -37,23 +38,11 @@ public class EntryResource {
 
     private final Logger log = LoggerFactory.getLogger(EntryResource.class);
 
-    private static final String ENTRY = "entry";
-    private static final String BASE_URL = "baseUrl";
-
     @Inject
     private EntryRepository entryRepository;
 
     @Inject
-    private FollowerRepository followerRepository;
-
-    @Inject
-    private MailService mailService;
-
-    @Inject
-    private MessageSource messageSource;
-
-    @Inject
-    private SpringTemplateEngine templateEngine;
+    private FollowerService followerService;
 
     public class PublicEntry implements Serializable {
         public String title;
@@ -136,30 +125,9 @@ public class EntryResource {
         }
         Entry result = entryRepository.save(entry);
 
-        // get all Follower
-        List<Follower> followers = followerRepository.findAllWithEagerRelationships();
-        List<Follower> followersPurged = new ArrayList<>();
-        // only keep ones with same subscription as the creator of the entry
-        for(int i = 0; i < followers.size(); i++){
-            for(Iterator<Blog> it = followers.get(i).getBlogs().iterator(); it.hasNext(); ){
-                if(it.next().getUser().getLogin().equals(entry.getBlog().getUser().getLogin())){
-                    followersPurged.add(followers.get(i));
-                    break;
-                }
-            }
-        }
-
-        // send email to all the followers
-        Locale locale = Locale.forLanguageTag(entry.getBlog().getUser().getLangKey());
-        Context context = new Context(locale);
-        context.setVariable(ENTRY, entry);
-
-        String baseUrl = "http://ricm-in-sweden.com/#/unsubscribe";
-        context.setVariable(BASE_URL, baseUrl);
-        String content = templateEngine.process("newsletterEmail", context);
-        String subject = messageSource.getMessage("email.newsletter.title", null, locale);
-        for(int i = 0; i < followersPurged.size(); i++){
-            mailService.sendEmail(followersPurged.get(i).getEmail(), subject, content, false, true);
+        // call the send email to followers
+        if(entry.isPublished()){
+            followerService.sendEmailToFollowers(result);
         }
 
         return ResponseEntity.created(new URI("/api/entries/" + result.getId()))
@@ -185,7 +153,14 @@ public class EntryResource {
         if (entry.getId() == null) {
             return createEntry(entry);
         }
+
+        Entry entryInDatabase = entryRepository.findOneWithEagerRelationships(entry.getId());
         Entry result = entryRepository.save(entry);
+
+        if(entryInDatabase != null && !entryInDatabase.isPublished() && entry.isPublished()){
+            followerService.sendEmailToFollowers(result);
+        }
+
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("entry", entry.getId().toString()))
             .body(result);
@@ -208,20 +183,21 @@ public class EntryResource {
 
     /**
      * GET /entries/owner/nb/offset : get nb entries starting at offset from owner
+     * Only return published entries
      * @param owner the owner of the entries
      * @param nb the number of entries to get
      * @param offset the offset where to start
      * @return the ResponseEntity with status 200 (OK) and the list of entries in body
      */
-    @RequestMapping(value = "/entries/{owner}/{nb}/{offset}",
+    @RequestMapping(value = "/entries/published/{owner}/{nb}/{offset}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<PublicEntry> getNbEntries(@PathVariable String owner, @PathVariable int nb, @PathVariable int offset) {
         log.debug("REST request to get all Entries");
-        List<Entry> entries = entryRepository.findAllWithEagerRelationships();
+        List<Entry> entries = entryRepository.findAllPublishedWithEagerRelationships();
         if(!owner.equals("all")) {
-            entries = entries.stream().filter(e -> e.getBlog().getUser().getLogin().equals(owner)).collect(Collectors.toList());
+            entries = entries.stream().filter(e -> e.getBlog().getUser().getLogin().equals(owner) && e.isPublished()).collect(Collectors.toList());
         }
         Collections.sort(entries, new Comparator<Entry>() {
             @Override
@@ -241,20 +217,20 @@ public class EntryResource {
         return publicEntries;
     }
 
-    @RequestMapping(value = "/entries/{owner}/{date}",
+    @RequestMapping(value = "/entries/published/{owner}/{date}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<PublicEntry> getEntriesForMonth(@PathVariable String owner, @PathVariable String date) {
         log.debug("REST request to get all Entries");
-        List<Entry> entries = entryRepository.findAllWithEagerRelationships();
+        List<Entry> entries = entryRepository.findAllPublishedWithEagerRelationships();
         int month = Integer.parseInt(date.split("-")[0]);
         int year = Integer.parseInt(date.split("-")[1]);
         if(!owner.equals("all")) {
             entries = entries.stream().filter(e -> (
                 e.getBlog().getUser().getLogin().equals(owner)
-                && e.getDate().getMonthValue() == month
-                && e.getDate().getYear() == year
+                    && e.getDate().getMonthValue() == month
+                    && e.getDate().getYear() == year
             )).collect(Collectors.toList());
         }
         Collections.sort(entries, new Comparator<Entry>() {
@@ -275,13 +251,13 @@ public class EntryResource {
      * GET /entries/last : Get the last five entries
      * @return the ResponseEntity with status 200 (OK) and the list of entries in body
      */
-    @RequestMapping(value = "/entries/last",
+    @RequestMapping(value = "/entries/published/last",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<PublicEntry> getLastEntries() {
         log.debug("REST request to get all youngest Entries");
-        List<Entry> entries = entryRepository.findAllWithEagerRelationships();
+        List<Entry> entries = entryRepository.findAllPublishedWithEagerRelationships();
         Collections.sort(entries, (o1, o2) -> (-1) * o1.getDate().compareTo(o2.getDate()));
 
         List<PublicEntry> publicEntries = new ArrayList<>();
@@ -301,13 +277,13 @@ public class EntryResource {
         return publicEntries;
     }
 
-    @RequestMapping(value = "/entries/dates/{owner}",
+    @RequestMapping(value = "/entries/published/dates/{owner}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<PublicDate> getEntriesDates(@PathVariable String owner) {
         log.debug("REST request to get all Entries");
-        List<Entry> entries = entryRepository.findByOwner(owner);
+        List<Entry> entries = entryRepository.findPublishedByOwner(owner);
         Collections.sort(entries, new Comparator<Entry>() {
             @Override
             public int compare(Entry o1, Entry o2) {
@@ -337,13 +313,13 @@ public class EntryResource {
         return dates;
     }
 
-    @RequestMapping(value = "/entries/number/{owner}",
+    @RequestMapping(value = "/entries/published/number/{owner}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public EntriesNumber getEntriesNumber(@PathVariable String owner) {
         log.debug("REST request to get number of entries for user: {}", owner);
-        return new EntriesNumber(entryRepository.findByOwner(owner).size());
+        return new EntriesNumber(entryRepository.findPublishedByOwner(owner).size());
     }
 
     /**

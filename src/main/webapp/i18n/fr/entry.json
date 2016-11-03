@@ -21,6 +21,7 @@
             "date": "Date",
             "picture": "Image",
             "blog": "Blog",
+            "published": "Publié",
             "tag": "Tag"
         }
     }

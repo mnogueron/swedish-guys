@@ -80,6 +80,7 @@
                         content: null,
                         date: null,
                         picture: null,
+                        published: true,
                         id: null
                     };
                 }
@@ -135,6 +136,7 @@
                                 content: null,
                                 date: null,
                                 picture: null,
+                                published: true,
                                 id: null
                             };
                         }

@@ -11,30 +11,30 @@
     LastEntries.$inject = ['$resource', 'DateUtils'];
 
     function LastEntries ($resource, DateUtils) {
-        return $resource('api/entries/last');
+        return $resource('api/entries/published/last');
     }
 
     BoundingDates.$inject = ['$resource'];
 
     function BoundingDates($resource) {
-        return $resource('api/entries/dates/:owner');
+        return $resource('api/entries/published/dates/:owner');
     }
 
     EntriesAccess.$inject = ['$resource'];
 
     function EntriesAccess($resource) {
-        return $resource('api/entries/:owner/:nb/:offset');
+        return $resource('api/entries/published/:owner/:nb/:offset');
     }
 
     EntriesAccessByDate.$inject = ['$resource'];
 
     function EntriesAccessByDate($resource) {
-        return $resource('api/entries/:owner/:date');
+        return $resource('api/entries/published/:owner/:date');
     }
 
     EntriesNumber.$inject = ['$resource'];
 
     function EntriesNumber($resource) {
-        return $resource('api/entries/number/:owner');
+        return $resource('api/entries/published/number/:owner');
     }
 })();
